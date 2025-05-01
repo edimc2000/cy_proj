@@ -4,7 +4,6 @@ describe('template spec', () => {
 
   beforeEach(() => {
     cy.visit('https://www.techglobal-training.com/frontend/form-elements')
-
   })
 
   it('[TC01] Validate the Contact Us information', () => {
