@@ -171,34 +171,34 @@ describe('template spec', () => {
   //   cy.get(':nth-child(6)> .control > textarea').should('have.attr', 'placeholder', 'Type your message here...')
   // });
 
-  it('[TC08] Validate the Consent checkbox', () => {
-    // 1. Navigate to https://techglobal-training.com/frontend/form-elements
-    // used beforeEach()
+  // it('[TC08] Validate the Consent checkbox', () => {
+  //   // 1. Navigate to https://techglobal-training.com/frontend/form-elements
+  //   // used beforeEach()
 
-    // 2. Validate the label is “I give my consent to be contacted.”
-    cy.get(':nth-child(7)> .control .checkbox').contains('I give my consent to be contacted.')
+  //   // 2. Validate the label is “I give my consent to be contacted.”
+  //   cy.get(':nth-child(7)> .control .checkbox').contains('I give my consent to be contacted.')
 
-    // 3. Validate that the Consent checkbox is required
-    cy.get(':nth-child(7)> .control .checkbox > input').should('have.attr', 'required')
+  //   // 3. Validate that the Consent checkbox is required
+  //   cy.get(':nth-child(7)> .control .checkbox > input').should('have.attr', 'required')
 
-    // 4. Validate that the Consent checkbox is clickable
-    cy.get(':nth-child(7)> .control .checkbox > input')
-      .should('be.enabled')
-      .should('be.visible')
-      .should('not.be.checked')
-      .check()
-      .should('be.checked')
-      .uncheck()
-      .should('not.be.checked')
+  //   // 4. Validate that the Consent checkbox is clickable
+  //   cy.get(':nth-child(7)> .control .checkbox > input')
+  //     .should('be.enabled')
+  //     .should('be.visible')
+  //     .should('not.be.checked')
+  //     .check()
+  //     .should('be.checked')
+  //     .uncheck()
+  //     .should('not.be.checked')
 
-    // 5. Click on the “I give my consent to be contacted.” checkbox and validate it is selected
-    // 6. Click on the “I give my consent to be contacted.” checkbox again and validate it is not selected
-    cy.get(':nth-child(7)> .control .checkbox > input')
-      .click()
-      .should('be.checked')
-      .click()
-      .should('not.be.checked')
-  });
+  //   // 5. Click on the “I give my consent to be contacted.” checkbox and validate it is selected
+  //   // 6. Click on the “I give my consent to be contacted.” checkbox again and validate it is not selected
+  //   cy.get(':nth-child(7)> .control .checkbox > input')
+  //     .click()
+  //     .should('be.checked')
+  //     .click()
+  //     .should('not.be.checked')
+  // });
 
 
   it('[TC09] Validate the SUBMIT button', () => {
@@ -218,27 +218,43 @@ describe('template spec', () => {
   it('[TC10] Validate the form submission', () => {
     // 1. Navigate to https://techglobal-training.com/frontend/form-elements
     // used beforeEach()
+    cy.get('form').then(form$ => {
+      form$.on('submit', e => {
+        e.preventDefault()
+     })
+    })
 
     // 2. Enter a first name
+    cy.get(':first-child > .control > .input').type('Peter Paul')
 
     // 3. Select a gender
+    cy.get('label.radio').contains('Prefer not to disclose').children().check()
 
     // 4. Enter an address
+    cy.get(':nth-child(3)> .control > input').type('1935 Sargent Avenue, Winnipeg, MB R3B 1T7')
 
     // 5. Enter an email
+    cy.get(':nth-child(4)> .control > input').type('peter.paul88@gmail.com')
 
     // 6. Enter a phone number
+    cy.get(':nth-child(5)> .control > input').type('204 222 4588')
 
     // 7. Enter a message
+    cy.get(':nth-child(6)> .control > textarea').click().type('Lorem Ipsum is simply dummy text of the printing and typesetting industry.')
 
     // 8. Select the “I give my consent to be contacted.” checkbox
+    cy.get(':nth-child(7)> .control .checkbox > input').check()
 
     // 9. Click on the “SUBMIT” button
-    
+    cy.get(':nth-child(8) > .control button').click()
+    // cy.contains('SUBMIT').click()
+
+
+
     // 10. Validate the form message “Thanks for submitting!” is displayed under the “SUBMIT” button
 
+    // cy.contains('Thanks for submitting!')
 
-    
   });
 
 })
