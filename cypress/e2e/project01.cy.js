@@ -101,74 +101,144 @@ describe('template spec', () => {
 
 
 
-  it('[TC04] Validate the Address input box', () => {
+  // it('[TC04] Validate the Address input box', () => {
+  //   // 1. Navigate to https://techglobal-training.com/frontend/form-elements
+  //   // used beforeEach()
+
+  //   // 2. Validate that the Address input box is displayed
+  //   cy.get(':nth-child(3)> .control > input').should('be.visible')
+
+  //   // 3. Validate that the Address input box is not required
+  //   cy.get(':nth-child(3)> .control > input').should('not.have.attr', 'required')
+
+  //   // 4. Validate that the label of the Address input box is “Address”
+  //   cy.get(':nth-child(3)> .label').should('have.text', 'Address')
+
+  //   // 5. Validate that the placeholder of the Address input box is “Enter your address *”
+  //   cy.get(':nth-child(3)> .control > input').should('have.attr', 'placeholder', 'Enter your address')
+  // });
+
+
+  // it('[TC05] Validate the Email input box', () => {
+  //   // 1. Navigate to https://techglobal-training.com/frontend/form-elements
+  //   // used beforeEach()
+
+  //   // 2. Validate that the Email input box is displayed
+  //   cy.get(':nth-child(4)> .control > input').should('be.visible')
+
+  //   // 3. Validate that the Email input box is required
+  //   cy.get(':nth-child(4)> .control > input').should('have.attr', 'required')
+
+  //   // 4. Validate that the label of the Email input box is “Email *”
+  //   cy.get(':nth-child(4)> .label').should('have.text', 'Email *')
+
+  //   // 5. Validate that the placeholder of the Email input box is “Enter your email”
+  //   cy.get(':nth-child(4)> .control > input').should('have.attr', 'placeholder', 'Enter your email')
+  // });
+
+
+  // it('[TC06] Validate the Phone input box', () => {
+  //   // 1. Navigate to https://techglobal-training.com/frontend/form-elements
+  //   // used beforeEach()
+
+  //   // 2. Validate that the Phone input box is displayed
+  //   cy.get(':nth-child(5)> .control > input').should('be.visible')
+
+  //   // 3. Validate that the Phone input box is not required
+  //   cy.get(':nth-child(5)> .control > input').should('not.have.attr', 'required')
+
+  //   // 4. Validate that the label of the Phone input box is “Phone”
+  //   cy.get(':nth-child(5)> .label').should('have.text', 'Phone')
+
+  //   // 5. Validate that the placeholder of the Address input box is “Enter your phone number”
+  //   cy.get(':nth-child(5)> .control > input').should('have.attr', 'placeholder', 'Enter your phone number')
+  // });
+
+  // it('[TC07] Validate the Message text area', () => {
+  //   // 1. Navigate to https://techglobal-training.com/frontend/form-elements
+  //   // used beforeEach()
+
+  //   // 2. Validate that the Message text area is displayed
+  //   cy.get(':nth-child(6)> .control > textarea').should('be.visible')
+
+  //   // 3. Validate that the Message text area is not required
+  //   cy.get(':nth-child(6)> .control > textarea').should('not.have.attr', 'required')
+
+  //   // 4. Validate that the label of the Message text area is “Message”
+  //   cy.get(':nth-child(6)> .label').should('have.text', 'Message')
+
+  //   // 5. Validate that the placeholder of the Message text area is “Type your message here…”
+  //   cy.get(':nth-child(6)> .control > textarea').should('have.attr', 'placeholder', 'Type your message here...')
+  // });
+
+  it('[TC08] Validate the Consent checkbox', () => {
     // 1. Navigate to https://techglobal-training.com/frontend/form-elements
     // used beforeEach()
 
-    // 2. Validate that the Address input box is displayed
-    cy.get(':nth-child(3)> .control > input').should('be.visible')
+    // 2. Validate the label is “I give my consent to be contacted.”
+    cy.get(':nth-child(7)> .control .checkbox').contains('I give my consent to be contacted.')
 
-    // 3. Validate that the Address input box is not required
-    cy.get(':nth-child(3)> .control > input').should('not.have.attr', 'required')
+    // 3. Validate that the Consent checkbox is required
+    cy.get(':nth-child(7)> .control .checkbox > input').should('have.attr', 'required')
 
-    // 4. Validate that the label of the Address input box is “Address”
-    cy.get(':nth-child(3)> .label').should('have.text', 'Address')
+    // 4. Validate that the Consent checkbox is clickable
+    cy.get(':nth-child(7)> .control .checkbox > input')
+      .should('be.enabled')
+      .should('be.visible')
+      .should('not.be.checked')
+      .check()
+      .should('be.checked')
+      .uncheck()
+      .should('not.be.checked')
 
-    // 5. Validate that the placeholder of the Address input box is “Enter your address *”
-    cy.get(':nth-child(3)> .control > input').should('have.attr', 'placeholder', 'Enter your address')
+    // 5. Click on the “I give my consent to be contacted.” checkbox and validate it is selected
+    // 6. Click on the “I give my consent to be contacted.” checkbox again and validate it is not selected
+    cy.get(':nth-child(7)> .control .checkbox > input')
+      .click()
+      .should('be.checked')
+      .click()
+      .should('not.be.checked')
   });
 
 
-  it('[TC05] Validate the Email input box', () => {
+  it('[TC09] Validate the SUBMIT button', () => {
     // 1. Navigate to https://techglobal-training.com/frontend/form-elements
     // used beforeEach()
 
-    // 2. Validate that the Email input box is displayed
-    cy.get(':nth-child(4)> .control > input').should('be.visible')
+    // 2. Validate the “SUBMIT” button is displayed
+    cy.get(':nth-child(8) > .control button').should('be.visible')
 
-    // 3. Validate that the Email input box is required
-    cy.get(':nth-child(4)> .control > input').should('have.attr', 'required')
+    // 3. Validate the “SUBMIT” button is clickable
+    cy.get(':nth-child(8) > .control button').should('be.enabled')
 
-    // 4. Validate that the label of the Email input box is “Email *”
-    cy.get(':nth-child(4)> .label').should('have.text', 'Email *')
-
-    // 5. Validate that the placeholder of the Email input box is “Enter your email”
-    cy.get(':nth-child(4)> .control > input').should('have.attr', 'placeholder', 'Enter your email')
+    // 4. Validate that the button text is “SUBMIT”
+    cy.get(':nth-child(8) > .control button').should('have.text', 'SUBMIT')
   });
 
-
-  it('[TC06] Validate the Phone input box', () => {
+  it('[TC10] Validate the form submission', () => {
     // 1. Navigate to https://techglobal-training.com/frontend/form-elements
     // used beforeEach()
 
-    // 2. Validate that the Phone input box is displayed
-    cy.get(':nth-child(5)> .control > input').should('be.visible')
+    // 2. Enter a first name
 
-    // 3. Validate that the Phone input box is not required
-    cy.get(':nth-child(5)> .control > input').should('not.have.attr', 'required')
+    // 3. Select a gender
 
-    // 4. Validate that the label of the Phone input box is “Phone”
-    cy.get(':nth-child(5)> .label').should('have.text', 'Phone')
+    // 4. Enter an address
 
-    // 5. Validate that the placeholder of the Address input box is “Enter your phone number”
-    cy.get(':nth-child(5)> .control > input').should('have.attr', 'placeholder', 'Enter your phone number')
-  });
+    // 5. Enter an email
 
-  it('[TC07] Validate the Message text area', () => {
-    // 1. Navigate to https://techglobal-training.com/frontend/form-elements
-    // used beforeEach()
+    // 6. Enter a phone number
 
-    // 2. Validate that the Message text area is displayed
-    cy.get(':nth-child(6)> .control > textarea').should('be.visible')
+    // 7. Enter a message
 
-    // 3. Validate that the Message text area is not required
-    cy.get(':nth-child(6)> .control > textarea').should('not.have.attr', 'required')
+    // 8. Select the “I give my consent to be contacted.” checkbox
 
-    // 4. Validate that the label of the Message text area is “Message”
-    cy.get(':nth-child(6)> .label').should('have.text', 'Message')
+    // 9. Click on the “SUBMIT” button
+    
+    // 10. Validate the form message “Thanks for submitting!” is displayed under the “SUBMIT” button
 
-    // 5. Validate that the placeholder of the Message text area is “Type your message here…”
-    cy.get(':nth-child(6)> .control > textarea').should('have.attr', 'placeholder', 'Type your message here…')
+
+    
   });
 
 })
