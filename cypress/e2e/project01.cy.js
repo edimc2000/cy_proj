@@ -80,7 +80,6 @@ describe('template spec', () => {
       .should('not.be.checked')
 
     // 7. Click on the “Female” option and validate it is selected while the others are not selected
-
     cy.get('label.radio')
       .contains('Female')
       .children()
@@ -214,11 +213,6 @@ describe('template spec', () => {
   it('[TC10] Validate the form submission', () => {
     // 1. Navigate to https://techglobal-training.com/frontend/form-elements
     // used beforeEach()
-    cy.get('form').then(form$ => {
-      form$.on('submit', e => {
-        e.preventDefault()
-      })
-    })
 
     // 2. Enter a first name
     cy.get(':first-child > .control > .input').type('Peter Paul')
