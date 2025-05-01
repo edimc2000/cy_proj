@@ -10,5 +10,6 @@ describe('template spec', () => {
 
   it('[TC1] Validate the Contact Us information  ', () => {
     cy.visit('https://www.techglobal-training.com/frontend/form-elements')
+    
   })
 })
