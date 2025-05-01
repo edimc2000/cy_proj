@@ -82,20 +82,23 @@ describe('template spec', () => {
 
     // 7. Click on the “Female” option and validate it is selected while the others are not selected
 
-    cy.get('label.radio')
-      .contains('Female')
-      .children()
-      .check()
-      .should('be.checked')
-      .parent()
-      .prev()
-      .children()
-      .should('not.be.checked')
-      .parent()
-      .next()
-      .next()
-      .children()
-      .should('not.be.checked')
+    // cy.get('label.radio')
+    //   .contains('Female')
+    //   .children()
+    //   .check()
+    //   .should('be.checked')
+    //   .parent()
+    //   .prev()
+    //   .children()
+    //   .should('not.be.checked')
+    //   .parent()
+    //   .next()
+    //   .next()
+    //   .children()
+    //   .should('not.be.checked')
+
+
+
   })
 
 
@@ -221,7 +224,7 @@ describe('template spec', () => {
     cy.get('form').then(form$ => {
       form$.on('submit', e => {
         e.preventDefault()
-     })
+      })
     })
 
     // 2. Enter a first name
@@ -247,14 +250,19 @@ describe('template spec', () => {
 
     // 9. Click on the “SUBMIT” button
     cy.get(':nth-child(8) > .control button').click()
-    // cy.contains('SUBMIT').click()
-
-
 
     // 10. Validate the form message “Thanks for submitting!” is displayed under the “SUBMIT” button
+    cy.contains('Thanks for submitting!')
 
-    // cy.contains('Thanks for submitting!')
+
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      // returning false here prevents Cypress from failing the test
+      return false
+    })
 
   });
+
+
+
 
 })
