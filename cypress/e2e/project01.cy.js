@@ -109,7 +109,7 @@ describe('template spec', () => {
     // 4. Validate that the label of the Address input box is “Address”
     cy.get(':nth-child(3)> .label').should('have.text', 'Address')
 
-    // 5. Validate that the placeholder of the Address input box is “Enter your address *”
+    // 5. Validate that the placeholder of the Address input box is “Enter your address *” // possibly wrong acceptance criteria with the * 
     cy.get(':nth-child(3)> .control > input').should('have.attr', 'placeholder', 'Enter your address')
   });
 
