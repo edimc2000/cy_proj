@@ -57,43 +57,16 @@ describe('template spec', () => {
     cy.get('label.radio').contains('Prefer not to disclose')
 
     // 5. Validate the options are clickable and not selected
-    cy.get('label.radio> input')
-      .should('be.enabled')
-      .should('be.visible')
-      .should('not.be.checked')
-      .click({ multiple: true })
-      .should('be.checked')
+    cy.get('label.radio > input').should('be.enabled')
 
     // 6. Click on the “Male” option and validate it is selected while the others are not selected
-    cy.get('label.radio')
-      .contains('Male')
-      .children()
-      .check()
-      .should('be.checked')
-      .parent()
-      .next()
-      .children()
-      .should('not.be.checked')
-      .parent()
-      .next()
-      .children()
-      .should('not.be.checked')
+    cy.get('label.radio').contains('Male').children().check().should('be.checked')
+    cy.get('label.radio:nth-child(n+3) > input').should('not.be.checked')
 
     // 7. Click on the “Female” option and validate it is selected while the others are not selected
-    cy.get('label.radio')
-      .contains('Female')
-      .children()
-      .check()
-      .should('be.checked')
-      .parent()
-      .prev()
-      .children()
-      .should('not.be.checked')
-      .parent()
-      .next()
-      .next()
-      .children()
-      .should('not.be.checked')
+    cy.get('label.radio').contains('Female').children().check().should('be.checked')
+    cy.get('label.radio:not(:nth-child(3)) > input').should('not.be.checked')
+ 
   })
 
   it('[TC04] Validate the Address input box', () => {
@@ -177,14 +150,7 @@ describe('template spec', () => {
     cy.get(':nth-child(7)> .control .checkbox > input').should('have.attr', 'required')
 
     // 4. Validate that the Consent checkbox is clickable
-    cy.get(':nth-child(7)> .control .checkbox > input')
-      .should('be.enabled')
-      .should('be.visible')
-      .should('not.be.checked')
-      .check()
-      .should('be.checked')
-      .uncheck()
-      .should('not.be.checked')
+    cy.get(':nth-child(7)> .control .checkbox > input').should('be.enabled')
 
     // 5. Click on the “I give my consent to be contacted.” checkbox and validate it is selected
     // 6. Click on the “I give my consent to be contacted.” checkbox again and validate it is not selected

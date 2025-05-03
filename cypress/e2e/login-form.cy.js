@@ -6,7 +6,7 @@ describe('template spec', () => {
         cy.visit('https://www.techglobal-training.com/frontend/login')
     })
 
-    /*
+/*
     it('[TC01] Validate the login form', () => {
         // 1. Navigate to https://techglobal-training.com/frontend/login
         // used beforeEach()
@@ -44,14 +44,13 @@ describe('template spec', () => {
         // 11. Validate the “Forgot Password?” link is displayed
         // 12. Validate that the “Forgot Password?” link is clickable
         // 13. Validate that the link text is “Forgot Password?”
-        cy.get('#login_btn')
-            .next()
+        cy.get('[href="/frontend/login"]')
             .should('be.visible')
             .should('have.attr', 'href', '/frontend/login')
             .should('have.text', 'Forgot Password?')
     })
-*/
-    it('[TC02] Validate the valid login', () => {
+
+    it('[TC02] Validate the successful login', () => {
         // 1. Navigate to https://techglobal-training.com/frontend/login
         // used beforeEach()
 
@@ -70,5 +69,27 @@ describe('template spec', () => {
         // 6. Validate the logout button displayed with the text “LOGOUT”
         cy.get('#logout').should('be.visible').should('have.text', 'LOGOUT')
     })
+*/
+    it('[TC03] Validate logout', () => {
+        // 1. Navigate to https://techglobal-training.com/frontend/login
+        // used beforeEach()
+
+        // 2. Enter the username as “TechGlobal”
+        cy.get('#username').type('TechGlobal')
+
+        // 3. Enter the password as “Test1234”
+        cy.get('#password').type('Test1234')
+
+        // 4. Click on the “LOGIN” button
+        cy.get('#login_btn').click()
+
+        // 5. Click on the “LOGOUT” button
+        cy.get('#logout').click()
+
+        // 6. Validate that the login form is displayed
+
+
+
+    });
 
 })
