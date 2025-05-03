@@ -51,10 +51,7 @@ describe('template spec', () => {
     cy.get('.field .control .radio input').should('have.attr', 'required')
 
     // 4. Validate the options are “Female”, “Male” and “Prefer not to disclose”
-    // cy.get('label.radio').should('have.', 'Male')
-    cy.get('label.radio').contains('Male')
-    cy.get('label.radio').contains('Female')
-    cy.get('label.radio').contains('Prefer not to disclose')
+    cy.get('label.radio').should('contain', 'Male').should('contain', 'Female').should('contain', 'Prefer not to disclose')
 
     // 5. Validate the options are clickable and not selected
     cy.get('label.radio > input').should('be.enabled')
@@ -66,7 +63,6 @@ describe('template spec', () => {
     // 7. Click on the “Female” option and validate it is selected while the others are not selected
     cy.get('label.radio').contains('Female').children().check().should('be.checked')
     cy.get('label.radio:not(:nth-child(3)) > input').should('not.be.checked')
- 
   })
 
   it('[TC04] Validate the Address input box', () => {
@@ -84,7 +80,7 @@ describe('template spec', () => {
 
     // 5. Validate that the placeholder of the Address input box is “Enter your address *” // possibly wrong acceptance criteria with the * 
     cy.get(':nth-child(3)> .control > input').should('have.attr', 'placeholder', 'Enter your address')
-  });
+  })
 
 
   it('[TC05] Validate the Email input box', () => {
@@ -102,7 +98,7 @@ describe('template spec', () => {
 
     // 5. Validate that the placeholder of the Email input box is “Enter your email”
     cy.get(':nth-child(4)> .control > input').should('have.attr', 'placeholder', 'Enter your email')
-  });
+  })
 
 
   it('[TC06] Validate the Phone input box', () => {
@@ -120,7 +116,7 @@ describe('template spec', () => {
 
     // 5. Validate that the placeholder of the Address input box is “Enter your phone number”
     cy.get(':nth-child(5)> .control > input').should('have.attr', 'placeholder', 'Enter your phone number')
-  });
+  })
 
   it('[TC07] Validate the Message text area', () => {
     // 1. Navigate to https://techglobal-training.com/frontend/form-elements
@@ -135,9 +131,9 @@ describe('template spec', () => {
     // 4. Validate that the label of the Message text area is “Message”
     cy.get(':nth-child(6)> .label').should('have.text', 'Message')
 
-    // 5. Validate that the placeholder of the Message text area is “Type your message here…”
+    // 5. Validate that the placeholder of the Message text area is “Type your message here...”
     cy.get(':nth-child(6)> .control > textarea').should('have.attr', 'placeholder', 'Type your message here...')
-  });
+  })
 
   it('[TC08] Validate the Consent checkbox', () => {
     // 1. Navigate to https://techglobal-training.com/frontend/form-elements
@@ -159,7 +155,7 @@ describe('template spec', () => {
       .should('be.checked')
       .click()
       .should('not.be.checked')
-  });
+  })
 
 
   it('[TC09] Validate the SUBMIT button', () => {
@@ -174,7 +170,7 @@ describe('template spec', () => {
 
     // 4. Validate that the button text is “SUBMIT”
     cy.get(':nth-child(8) > .control button').should('have.text', 'SUBMIT')
-  });
+  })
 
   it('[TC10] Validate the form submission', () => {
     // 1. Navigate to https://techglobal-training.com/frontend/form-elements
@@ -215,10 +211,6 @@ describe('template spec', () => {
       // returning false here prevents Cypress from failing the test
       return false
     })
-
-  });
-
-
-
+  })
 
 })
