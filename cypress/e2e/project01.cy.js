@@ -11,7 +11,7 @@ describe('TG Form Elements', () => {
     // used beforeEach()
 
     // 2. Validate the heading is “Contact Us”
-    cy.get('h1').should('have.text', 'Contact Us')
+    cy.get('h1.is-size-3').should('have.text', 'Contact Us')
 
     // 3. Validate the address is “2800 S River Rd Suite 310, Des Plaines, IL 60018”
     cy.get('#address').should('have.text', '2800 S River Rd Suite 310, Des Plaines, IL 60018')

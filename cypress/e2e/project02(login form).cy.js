@@ -97,7 +97,7 @@ describe('TG Login Form', () => {
         validateLogin()
     })
 
-    it('[TC04] - Validate the Forgot Password? Link and Reset Password modal', () => {
+    it('[TC04] Validate the Forgot Password? Link and Reset Password modal', () => {
         // 1. Navigate to https://techglobal-training.com/frontend/login
         // used beforeEach()
 
@@ -125,7 +125,7 @@ describe('TG Login Form', () => {
             .and('not.have.attr', 'disabled')
     })
 
-    it('[TC05] - Validate the Reset Password modal close button', () => {
+    it('[TC05] Validate the Reset Password modal close button', () => {
         // 1. Navigate to https://techglobal-training.com/frontend/login
         //used beforeEach()
 
