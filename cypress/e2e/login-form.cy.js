@@ -6,10 +6,10 @@ describe('template spec', () => {
         cy.visit('https://www.techglobal-training.com/frontend/login')
     })
 
-/*
-    it('[TC01] Validate the login form', () => {
+    const validateLogin = () => {
+        cy.log('*** function call to validate the login form ***')
         // 1. Navigate to https://techglobal-training.com/frontend/login
-        // used beforeEach()
+        cy.visit('https://www.techglobal-training.com/frontend/login')
 
         // 2. Validate that the username input box is displayed
         // 3. Validate that the username input box is not required
@@ -44,10 +44,14 @@ describe('template spec', () => {
         // 11. Validate the “Forgot Password?” link is displayed
         // 12. Validate that the “Forgot Password?” link is clickable
         // 13. Validate that the link text is “Forgot Password?”
-        cy.get('[href="/frontend/login"]')
+        cy.get('a[href="/frontend/login"]')
             .should('be.visible')
             .should('have.attr', 'href', '/frontend/login')
             .should('have.text', 'Forgot Password?')
+    }
+
+    it('[TC01] Validate the login form', () => {
+        validateLogin()
     })
 
     it('[TC02] Validate the successful login', () => {
@@ -69,7 +73,8 @@ describe('template spec', () => {
         // 6. Validate the logout button displayed with the text “LOGOUT”
         cy.get('#logout').should('be.visible').should('have.text', 'LOGOUT')
     })
-*/
+
+
     it('[TC03] Validate logout', () => {
         // 1. Navigate to https://techglobal-training.com/frontend/login
         // used beforeEach()
@@ -87,9 +92,11 @@ describe('template spec', () => {
         cy.get('#logout').click()
 
         // 6. Validate that the login form is displayed
+        validateLogin()
+    })
 
-
-
-    });
+    it('[TC04] - Validate the Forgot Password? Link and Reset Password modal', () => {
+        
+    })
 
 })

@@ -11,7 +11,7 @@ describe('template spec', () => {
     // used beforeEach()
 
     // 2. Validate the heading is “Contact Us”
-    cy.get('.is-size-3').should('have.text', 'Contact Us')
+    cy.get('h1').should('have.text', 'Contact Us')
 
     // 3. Validate the address is “2800 S River Rd Suite 310, Des Plaines, IL 60018”
     cy.get('#address').should('have.text', '2800 S River Rd Suite 310, Des Plaines, IL 60018')
@@ -30,13 +30,13 @@ describe('template spec', () => {
 
     // 2. Validate that the Full name input box is displayed
     // 3. Validate that the Full name input box is required
-    cy.get(':first-child > .control > .input').should('be.visible').should('have.attr', 'required')
+    cy.get('[placeholder="Enter your full name"]').should('be.visible').should('have.attr', 'required')
 
     // 4. Validate that the label of the Full name input box is “Full name *”
     cy.get('[for="name"]').should('have.text', 'Full name *')
 
     // 5. Validate that the placeholder of the Full name input box is “Enter your full name”
-    cy.get(':first-child > .control > .input').should('have.attr', 'placeholder', 'Enter your full name')
+    cy.get('[placeholder="Enter your full name"]').should('have.attr', 'placeholder', 'Enter your full name')
   })
 
 
