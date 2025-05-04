@@ -1,6 +1,6 @@
 /// <reference types = "cypress" />
 
-describe('template spec', () => {
+describe('TG Form Elements', () => {
 
   beforeEach(() => {
     cy.visit('https://www.techglobal-training.com/frontend/form-elements')
