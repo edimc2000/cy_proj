@@ -2,8 +2,8 @@ class Login {
     elements = {
         validUserName: 'TechGlobal',
         validPassword: 'Test1234',
-        invalidUserName: 'John', 
-        invalidPassword: '1234', 
+        invalidUserName: 'John',
+        invalidPassword: '1234',
 
         userNameInputbox: () => cy.get('#username'),
         passwordInputbox: () => cy.get('#password'),
@@ -13,7 +13,7 @@ class Login {
 
         forgotPasswordLink: () => cy.get('a[href="/frontend/login"]'),
         successMessage: () => cy.get('#success_lgn'),
-        errorMessage: () => cy.get('#error_message'), 
+        errorMessage: () => cy.get('#error_message'),
 
         modalCard: () => cy.get('.modal .modal-card'),
         modalTitle: () => cy.get('#modal_title'),
