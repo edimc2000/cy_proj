@@ -1,10 +1,5 @@
 class Login {
     elements = {
-        validUserName: 'TechGlobal',
-        validPassword: 'Test1234',
-        invalidUserName: 'John',
-        invalidPassword: '1234',
-
         userNameInputbox: () => cy.get('#username'),
         passwordInputbox: () => cy.get('#password'),
 
@@ -69,4 +64,4 @@ class Login {
 
 }
 
-module.exports = new Login();
+module.exports = new Login()
