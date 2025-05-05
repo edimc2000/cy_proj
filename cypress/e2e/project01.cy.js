@@ -30,7 +30,7 @@ describe('TG Form Elements', () => {
 
     // 2. Validate that the Full name input box is displayed
     // 3. Validate that the Full name input box is required
-    cy.get('[placeholder="Enter your full name"]').should('be.visible').should('have.attr', 'required')
+    cy.get('[placeholder="Enter your full name"]').should('be.visible').and('have.attr', 'required')
 
     // 4. Validate that the label of the Full name input box is “Full name *”
     cy.get('[for="name"]').should('have.text', 'Full name *')
@@ -51,7 +51,7 @@ describe('TG Form Elements', () => {
     cy.get('.field .control .radio input').should('have.attr', 'required')
 
     // 4. Validate the options are “Female”, “Male” and “Prefer not to disclose”
-    cy.get('label.radio').should('contain', 'Male').should('contain', 'Female').should('contain', 'Prefer not to disclose')
+    cy.get('label.radio').should('contain', 'Male').and('contain', 'Female').and('contain', 'Prefer not to disclose')
 
     // 5. Validate the options are clickable and not selected
     cy.get('label.radio > input').should('be.enabled')
@@ -158,7 +158,7 @@ describe('TG Form Elements', () => {
   })
 
 
-  it('[TC09] Validate the SUBMIT button', () => {
+  it.only('[TC09] Validate the SUBMIT button', () => {
     // 1. Navigate to https://techglobal-training.com/frontend/form-elements
     // used beforeEach()
 
@@ -193,8 +193,8 @@ describe('TG Form Elements', () => {
 
     // 7. Enter a message
     cy.get(':nth-child(6)> .control > textarea').click()
-      .type('Lorem Ipsum is simply dummy text of the printing and typesetting industry.')
-      .type(' It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.')
+      .type('Lorem Ipsum is simply dummy text of the printing and typesetting industry. ')
+      .type('It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.')
     cy.wait(1000)
 
     // 8. Select the “I give my consent to be contacted.” checkbox
