@@ -1,3 +1,4 @@
+// POM based
 /// <reference types = "cypress" />
 import Login from "../../pages/loginForm";
 
@@ -6,8 +7,6 @@ describe('TG Login Form', () => {
 
     beforeEach(() => {
         cy.visit('https://www.techglobal-training.com/frontend/login');
-        cy.get('a[href="/frontend/login"]').as('password')
-
     })
 
     it('[TC01] Validate the login form', () => {
@@ -35,7 +34,7 @@ describe('TG Login Form', () => {
     })
 
 
-    it.only('[TC03] Validate logout', () => {
+    it('[TC03] Validate logout', () => {
         // 1. Navigate to https://techglobal-training.com/frontend/login
         // used beforeEach()
 
@@ -60,24 +59,25 @@ describe('TG Login Form', () => {
         // used beforeEach()
 
         // 2. Click on the “Forgot Password?” link
-        cy.get('@password').click()
+        Login.elements.forgotPasswordLink().click()
 
         // 3. Validate that the modal heading “Reset Password” is displayed
-        cy.get('#modal_title').should('have.text', 'Reset Password')
+        Login.elements.modalTitle().should('be.visible').and('have.text', 'Reset Password')
 
         // 4. Validate that the close button is displayed
-        cy.get('[aria-label="close"]').should('be.visible')
+        Login.elements.modalCloseButton().should('be.visible').and('have.attr', 'class', 'delete')
 
         // 5. Validate that the email input box is displayed
-        cy.get('#email').should('be.visible')
+        Login.elements.modalEmailInputbox().should('be.visible')
 
         // 6. Validate that the label of the email input box is “Enter your email address and we'll send you a link to reset your password.”
-        cy.get('label[for="email"]').should('have.text', 'Enter your email address and we\'ll send you a link to reset your password. ')
+        Login.elements.modalEmailInputbox().parent()
+            .should('have.text', 'Enter your email address and we\'ll send you a link to reset your password. ')
 
         // 7. Validate the “SUBMIT” button is displayed
         // 8. Validate the “SUBMIT” button is clickable
         // 9. Validate that the button text is “SUBMIT”
-        cy.get('#submit')
+        Login.elements.modalSubmitButton()
             .should('be.visible')
             .and('have.text', 'SUBMIT')
             .and('not.have.attr', 'disabled')
@@ -88,17 +88,16 @@ describe('TG Login Form', () => {
         //used beforeEach()
 
         // 2. Click on the “Forgot Password?” link
-        cy.get('@password').click()
+        Login.elements.forgotPasswordLink().click()
 
         // 3. Validate that the “Reset Password” modal is displayed
-
-        cy.get('#modal_title').should('have.text', 'Reset Password')
+        Login.elements.modalTitle().should('have.text', 'Reset Password')
 
         // 4. Click on the close button
-        cy.get('[aria-label="close"]').should('be.visible').click()
+        Login.elements.modalCloseButton().should('be.visible').click()
 
         // 5. Validate that the “Reset Password” modal is closed
-        cy.get('#modal_title').should('not.exist')
+        Login.elements.modalCard().should('not.exist')
     })
 
     it('[TC06] Validate the Reset Password form submission', () => {
@@ -106,16 +105,18 @@ describe('TG Login Form', () => {
         //used beforeEach()
 
         // 2. Click on the “Forgot Password?” link
-        cy.get('@password').click()
+        Login.elements.forgotPasswordLink().click()
 
         // 3. Enter an email
-        cy.get('#email').type(emailAddress).should('have.value', emailAddress)
+        Login.elements.modalEmailInputbox().type(emailAddress).should('have.value', emailAddress)
 
         // 4. Click on the “SUBMIT” button
-        cy.get('#submit').click()
+        Login.elements.modalSubmitButton().click()
 
         // 6. Validate the form message “A link to reset your password has been sent to your email address.” is displayed under the “SUBMIT” button
-        cy.get('#confirmation_message').should('have.text', 'A link to reset your password has been sent to your email address.')
+        Login.elements.modalConfirmationMessage()
+            .should('be.visible')
+            .and('have.text', 'A link to reset your password has been sent to your email address.')
     })
 
 
@@ -124,16 +125,16 @@ describe('TG Login Form', () => {
         // used beforeEach
 
         // 2. Leave username empty
-        cy.get('#username').clear()
+        Login.elements.userNameInputbox().clear()
 
         // 3. Leave password empty
-        cy.get('#password').clear()
+        Login.elements.passwordInputbox().clear()
 
         // 4. Click on the “LOGIN” button
-        cy.get('#login_btn').click()
+        Login.elements.loginButton().click()
 
         // 5. Validate the failure message is displayed as “Invalid Username entered!” above the form
-        cy.get('#error_message')
+        Login.elements.errorMessage()
             .should('be.visible')
             .and('have.text', 'Invalid Username entered!')
     })
@@ -143,54 +144,54 @@ describe('TG Login Form', () => {
         // used beforeEach
 
         // 2. Enter the username as “John”
-        cy.get('#username').type('John')
+        Login.elements.userNameInputbox().type(Login.elements.invalidUserName)
 
         // 3. Enter the password as “Test1234”
-        cy.get('#password').type('Test1234')
+        Login.elements.passwordInputbox().type(Login.elements.validPassword)
 
         // 4. Click on the “LOGIN” button
-        cy.get('#login_btn').click()
+        Login.elements.loginButton().click()
 
         // 5. Validate the failure message is displayed as “Invalid Username entered!” above the form
-        cy.get('#error_message')
+        Login.elements.errorMessage()
             .should('be.visible')
             .and('have.text', 'Invalid Username entered!')
     })
 
-    it('[TC09] Validate the invalid login with the wrong password', () => {
+    it.only('[TC09] Validate the invalid login with the wrong password', () => {
         // 1. Navigate to https://techglobal-training.com/frontend/login
         //used beforeEach
 
         // 2. Enter the username as “TechGlobal”
-        cy.get('#username').type('TechGlobal')
+        Login.elements.userNameInputbox().type(Login.elements.validUserName)
 
         // 3. Enter the password as “1234”
-        cy.get('#password').type('1234')
+        Login.elements.passwordInputbox().type(Login.elements.invalidPassword)
 
         // 4. Click on the “LOGIN” button
-        cy.get('#login_btn').click()
+        Login.elements.loginButton().click()
 
         // 5. Validate the failure message is displayed as “Invalid Password entered!” above the form
-        cy.get('#error_message')
+        Login.elements.errorMessage()
             .should('be.visible')
             .and('have.text', 'Invalid Password entered!')
     })
 
-    it('[TC10] Validate the invalid login with the wrong username and password', () => {
+    it.only('[TC10] Validate the invalid login with the wrong username and password', () => {
         // 1. Navigate to https://techglobal-training.com/frontend/login
         //used beforeEach
 
         // 2. Enter the username as "John"
-        cy.get('#username').type('John')
+        Login.elements.userNameInputbox().type(Login.elements.invalidUserName)
 
         // 3. Enter the password as “1234”
-        cy.get('#password').type('1234')
+        Login.elements.passwordInputbox().type(Login.elements.invalidPassword)
 
         // 4. Click on the “LOGIN” button
-        cy.get('#login_btn').click()
+        Login.elements.loginButton().click()
 
         // 5. Validate the failure message is displayed as “Invalid Username entered!” above the form
-        cy.get('#error_message')
+        Login.elements.errorMessage()
             .should('be.visible')
             .and('have.text', 'Invalid Username entered!')
     })
