@@ -47,18 +47,61 @@ describe('TG Booking Form', () => {
             .and('have.value', 'Select state...')
 
         // 6. Validate that the “To” label and dropdown are displayed
+        elements.labelTo()
+            .should('be.visible')
+            .and('have.text', 'To')
+
+        elements.selectTo()
+            .should('be.visible')
+            .and('have.value', 'Select state...')
 
         // 7. Validate that the “Depart” label and date picker is displayed
 
+        elements.labelDepart()
+            .should('be.visible')
+            .and('have.text', 'Depart')
+
+        elements.inputDepart()
+            .should('be.enabled')
+            .should('be.visible')
+            .click()
+
+        elements.divDatePicker()
+            .should('exist')
+
+        elements.labelDepart().click() // click somewhere to close the date picker
+
         // 8. Validate that the “Return” label and date picker is displayed and disabled
+        elements.labelReturn()
+            .should('be.visible')
+            .and('have.text', 'Return')
+
+        elements.inputreturn()
+            .should('be.disabled')
+            .should('be.visible')
 
         // 9. Validate that the “Number of passengers” label and dropdown are displayed and 1 is the default
+        elements.labelNumPassengers()
+            .should('be.visible')
+            .and('have.text', 'Number of passengers')
+
+        elements.selectNumPassengers()
+            .should('be.visible')
+            .and('have.value', '1')
 
         // 10. Validate that the “Passenger 1” category label and dropdown are displayed and “Adult (16-64)” is the default
+        elements.labelPassenger1()
+            .should('be.visible')
+            .and('have.text', 'Passenger 1')
+
+        elements.selectPassenger1()
+            .should('be.visible')
+            .and('have.value', 'Adult (16-64)')
 
         // 11.Validate that the “BOOK” button is displayed and enabled
-
-
+        elements.buttonBook()
+            .should('be.visible')
+            .and('be.enabled')
     })
 
     it('check passegers', () => {
