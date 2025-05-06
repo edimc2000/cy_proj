@@ -11,7 +11,7 @@ describe('TG Login Form', () => {
         cy.visit('https://www.techglobal-training.com/frontend/login');
     })
 
-    it.only('[TC01] Validate the login form', () => {
+    it('[TC01] Validate the login form', () => {
         Login.validateLogin()
     })
 
