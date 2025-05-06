@@ -2,7 +2,7 @@
 /// <reference types = "cypress" />
 
 const Booking = require('../../pages/bookingForm.js')
-const { testData } = require('./data/booking-form-test-data.js')
+const { testData } = require('./data/bookingFormTestData.js')
 const elements = Booking.elements;
 
 describe('TG Booking Form', () => {

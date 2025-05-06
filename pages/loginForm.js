@@ -56,10 +56,14 @@ class Login {
         // 11. Validate the “Forgot Password?” link is displayed
         // 12. Validate that the “Forgot Password?” link is clickable
         // 13. Validate that the link text is “Forgot Password?”
+
         this.elements.forgotPasswordLink()
             .should('be.visible')
             .and('have.prop', 'tagName', 'A') // a tag for clickable assertion
             .and('have.text', 'Forgot Password?')
+            .click()
+        this.elements.modalTitle().should('be.visible') // result when it's clickable
+
     }
 
 }

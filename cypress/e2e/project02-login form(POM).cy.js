@@ -2,7 +2,7 @@
 /// <reference types = "cypress" />
 
 const Login = require('../../pages/loginForm.js')
-const { testData } = require('./data/login-form-test-data.js')
+const { testData } = require('./data/loginFormTestData.js')
 const elements = Login.elements;
 
 describe('TG Login Form', () => {
@@ -11,7 +11,7 @@ describe('TG Login Form', () => {
         cy.visit('https://www.techglobal-training.com/frontend/login');
     })
 
-    it('[TC01] Validate the login form', () => {
+    it.only('[TC01] Validate the login form', () => {
         Login.validateLogin()
     })
 
