@@ -11,7 +11,7 @@ describe('TG Booking Form', () => {
         cy.visit('https://www.techglobal-training.com/frontend/booking');
     })
 
-    it.only('[TC01] Validate the default Book your trip form', () => {
+    it('[TC01] Validate the default Book your trip form', () => {
         // 1. Navigate to https://techglobal-training.com/frontend/booking
         // used beforeEach()
 
@@ -102,6 +102,19 @@ describe('TG Booking Form', () => {
         elements.buttonBook()
             .should('be.visible')
             .and('be.enabled')
+    })
+
+
+    it.only('try labels with each', () => {
+
+        elements.labelPassengerCount().select(0)
+        elements.labels2to8().each( (el, index) => {
+            const labelText =  el.text()
+            // cy.log(`testdata: ${testData.labels[index]['labelName']} / ${testData.labels[index]['default']}`)
+            cy.wrap(labelText).should('eq', testData.labels[index]['labelName'])
+            cy.wrap(el).should('be.visible').next().should('be.visible')
+
+        })
     })
 
     it('check passegers', () => {
