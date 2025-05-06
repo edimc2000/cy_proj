@@ -1,7 +1,7 @@
 // POM based
 /// <reference types = "cypress" />
 
-const Booking = require('../../pages/bookingForm.js')
+const Booking = require('../../pages/bookingFormPage.js')
 const { testData } = require('./data/bookingFormTestData.js')
 const elements = Booking.elements;
 

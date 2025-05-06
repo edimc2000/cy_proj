@@ -1,18 +1,59 @@
 // POM based
 /// <reference types = "cypress" />
 
-const Login = require('../../pages/loginForm.js')
+const loginPage = require('../../pages/loginFormPage.js')
 const { testData } = require('./data/loginFormTestData.js')
-const elements = Login.elements;
+const elements = loginPage.elements;
 
 describe('TG Login Form', () => {
-
     beforeEach(() => {
         cy.visit('https://www.techglobal-training.com/frontend/login');
     })
 
     it('[TC01] Validate the login form', () => {
-        Login.validateLogin()
+        // 1. Navigate to https://techglobal-training.com/frontend/login
+        // cy.visit('https://www.techglobal-training.com/frontend/login')
+
+        // 2. Validate that the username input box is displayed
+        // 3. Validate that the username input box is not required
+         elements.userNameInputbox()
+            .should('be.visible')
+            .and('not.have.attr', 'required')
+
+        // 4. Validate that the label of the username input box is “Please enter your username”
+        elements.userNameInputbox()
+            .parent()
+            .should('have.text', 'Please enter your username')
+
+        // 5. Validate that the password input box is displayed
+        // 6. Validate that the password input box is not required
+        elements.passwordInputbox()
+            .should('be.visible')
+            .and('not.have.attr', 'required')
+
+        // 7. Validate that the label of the password input box is “Please enter your password”
+        elements.passwordInputbox()
+            .parent()
+            .should('have.text', 'Please enter your password')
+
+        // 8. Validate the “LOGIN” button is displayed
+        // 9. Validate the “LOGIN” button is clickable
+        // 10. Validate that the button text is “LOGIN”
+        elements.loginButton()
+            .should('be.visible')
+            .and('be.enabled')
+            .and('have.text', 'LOGIN')
+
+        // 11. Validate the “Forgot Password?” link is displayed
+        // 12. Validate that the “Forgot Password?” link is clickable
+        // 13. Validate that the link text is “Forgot Password?”
+
+        elements.forgotPasswordLink()
+            .should('be.visible')
+            .and('have.prop', 'tagName', 'A') // a tag for clickable assertion
+            .and('have.text', 'Forgot Password?')
+            .click()
+        elements.modalTitle().should('be.visible') // result when it's clickable
     })
 
     it('[TC02] Validate the successful login', () => {
@@ -20,13 +61,9 @@ describe('TG Login Form', () => {
         // used beforeEach()
 
         // 2. Enter the username as “TechGlobal”
-        elements.userNameInputbox().type(testData.validUserName).should('have.attr', 'value', testData.validUserName)
-
         // 3. Enter the password as “Test1234”
-        elements.passwordInputbox().type(testData.validPassword).should('have.attr', 'value', testData.validPassword)
-
         // 4. Click on the “LOGIN” button
-        elements.loginButton().click()
+        loginPage.login(testData.validUserName, testData.validPassword)
 
         // 5. Validate the success message is displayed as “You are logged in”
         elements.successMessage().should('be.visible').and('have.text', 'You are logged in')
@@ -41,19 +78,16 @@ describe('TG Login Form', () => {
         // used beforeEach()
 
         // 2. Enter the username as “TechGlobal”
-        elements.userNameInputbox().type(testData.validUserName)
-
         // 3. Enter the password as “Test1234”
-        elements.passwordInputbox().type(testData.validPassword)
-
         // 4. Click on the “LOGIN” button
-        elements.loginButton().click()
+        loginPage.login(testData.validUserName, testData.validPassword)
 
         // 5. Click on the “LOGOUT” button
         elements.logoutButton().click()
 
         // 6. Validate that the login form is displayed
-        Login.validateLogin()
+        elements.userNameInputbox().should('be.visible')
+        elements.passwordInputbox().should('be.visible')
     })
 
     it('[TC04] Validate the Forgot Password? Link and Reset Password modal', () => {
@@ -107,13 +141,9 @@ describe('TG Login Form', () => {
         //used beforeEach()
 
         // 2. Click on the “Forgot Password?” link
-        elements.forgotPasswordLink().click()
-
         // 3. Enter an email
-        elements.modalEmailInputbox().type(testData.emailAddress).should('have.value', testData.emailAddress)
-
         // 4. Click on the “SUBMIT” button
-        elements.modalSubmitButton().click()
+        loginPage.passwordReset(testData.emailAddress)
 
         // 6. Validate the form message “A link to reset your password has been sent to your email address.” is displayed under the “SUBMIT” button
         elements.modalConfirmationMessage()
@@ -127,13 +157,9 @@ describe('TG Login Form', () => {
         // used beforeEach
 
         // 2. Leave username empty
-        elements.userNameInputbox().clear()
-
         // 3. Leave password empty
-        elements.passwordInputbox().clear()
-
         // 4. Click on the “LOGIN” button
-        elements.loginButton().click()
+        loginPage.loginEmpty()
 
         // 5. Validate the failure message is displayed as “Invalid Username entered!” above the form
         elements.errorMessage()
@@ -146,13 +172,9 @@ describe('TG Login Form', () => {
         // used beforeEach
 
         // 2. Enter the username as “John”
-        elements.userNameInputbox().type(testData.invalidUserName)
-
         // 3. Enter the password as “Test1234”
-        elements.passwordInputbox().type(testData.validPassword)
-
         // 4. Click on the “LOGIN” button
-        elements.loginButton().click()
+        loginPage.login(testData.invalidUserName, testData.validPassword)
 
         // 5. Validate the failure message is displayed as “Invalid Username entered!” above the form
         elements.errorMessage()
@@ -165,13 +187,9 @@ describe('TG Login Form', () => {
         //used beforeEach
 
         // 2. Enter the username as “TechGlobal”
-        elements.userNameInputbox().type(testData.validUserName)
-
         // 3. Enter the password as “1234”
-        elements.passwordInputbox().type(testData.invalidPassword)
-
         // 4. Click on the “LOGIN” button
-        elements.loginButton().click()
+        loginPage.login(testData.validUserName, testData.invalidPassword)
 
         // 5. Validate the failure message is displayed as “Invalid Password entered!” above the form
         elements.errorMessage()
@@ -184,13 +202,9 @@ describe('TG Login Form', () => {
         //used beforeEach
 
         // 2. Enter the username as "John"
-        elements.userNameInputbox().type(testData.invalidUserName)
-
         // 3. Enter the password as “1234”
-        elements.passwordInputbox().type(testData.invalidPassword)
-
         // 4. Click on the “LOGIN” button
-        elements.loginButton().click()
+        loginPage.login(testData.invalidUserName, testData.invalidPassword)
 
         // 5. Validate the failure message is displayed as “Invalid Username entered!” above the form
         elements.errorMessage()
