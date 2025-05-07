@@ -106,45 +106,26 @@ describe('TG Booking Form', () => {
 
 
     it.only('try labels with each', () => {
-        let counter = 0; 
-        // elements.divLabels().each((el, index) => {
-        elements.labels2to8().each((el, index) => {
-            // elements.labelTripType().each((el, index) => {
-            // elements.divs().each( (el, index) => { 
-            const labelText = el.text().trim()
-            counter++
+        elements.divLabels().each((el, index) => {
+            const labelText = el.text()
+            
+            if(labelText === testData.divs[labelText].labelName) {
+                if (labelText === testData.mainLabelException){
+                    elements.radioButtons() /*********   USE EACh To BE CONTINUED  */
 
-            // cy.wrap(el)
-            // .should('be.visible')
-            // .and('have.text', testData.divs[labelText].labelName)
-
-
-            if (labelText === testData.divs[labelText].labelName) {
+                } else {
                 cy.wrap(el)
                     .should('be.visible')
                     .and('have.text', testData.divs[labelText].labelName)
+                    
+                cy.log('MAIN LABEL assertions  visibility and string matching ')
 
-                cy.log('Debug>> true ')
-
-                cy.log(`xData iType: ${testData.divs[labelText].labelName} ${counter}`)
-                // cy.log(`xData iType: ${testData.divs['Cabin Class'].labelName} `)
-                cy.log(` | Element's text: ${labelText} `)
-    
+                }
 
             }
 
-            // cy.log(`testdata: ${testData.labels[index]['labelName']} / ${testData.labels[index]['default']}`)
-            // cy.wrap(labelText).should('eq', testData.labels[index]['labelName'])
-            // cy.wrap(el).should('be.visible').next().should('be.visible')
-
         })
     })
-
-    // it('check passegers', () => {
-    //     elements.labelPassengerCount().select(6)
-    //     elements.labelPassengerX()
-    // })
-
 
 
 })

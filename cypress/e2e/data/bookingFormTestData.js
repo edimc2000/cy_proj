@@ -4,9 +4,24 @@ class testData {
         attrText: ['text', '[input="text"]'],
         tagSelect: ['select', 'select'],
     }
-    
-    divs = {
 
+
+    divRadioButtons = {
+
+        'One Way': {
+            inputType: this.inputTypes['attrRadio'][0],
+            labelName: 'One Way',
+            checked: true,
+        },
+
+        'Round trip': {
+            inputType: this.inputTypes['attrRadio'][0],
+            labelName: 'Round trip',
+            checked: false,
+        },
+    }
+
+    divs = {
         'Trip type': {
             inputType: this.inputTypes['attrRadio'][0],
             labelName: 'Trip type',
@@ -102,11 +117,9 @@ class testData {
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)'
         },
-
-
     }
 
-
+    mainLabelException = 'Trip type'
 
 }
 
