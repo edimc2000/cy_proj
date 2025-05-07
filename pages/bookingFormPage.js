@@ -3,12 +3,16 @@ class Booking {
         buttonBook: () => cy.get('.control button'),
         divDatePicker: () => cy.get('div.react-datepicker'),
 
+        divs: () => cy.get('div.field'),
+        divLabels: () => cy.get('div.field').find('.label'),
+
         inputDepart: () => cy.get(':nth-child(5) > div input'),
         inputreturn: () => cy.get(':nth-child(6) > div input'),
 
         labelOneWay: () => cy.get(''),
         labelTwoWay: () => cy.get(''),
         labelCabinClass: () => cy.get(':nth-child(2) > label.label'),
+        labelTripType: () => cy.get(':nth-child(1) > label.label'),
         labelFrom: () => cy.get(':nth-child(3) > label.label'),
         labelTo: () => cy.get(':nth-child(4) > label.label'),
         labelDepart: () => cy.get(':nth-child(5) > label.label'),
@@ -16,6 +20,9 @@ class Booking {
         labelNumPassengers: () => cy.get(':nth-child(7) > label.label'),
         labelPassenger1: () => cy.get(':nth-child(8) > label.label'),
         labels2to8: () => cy.get(':nth-child(n+2):nth-child(-n+16)> label.label'),
+        labels1to2: () => cy.get(':nth-child(n+1):nth-child(-n+3)> label.label'),
+
+
 
         radioButtonOneWay: () => cy.get('input[type="radio"][value="One way"]'),
         radioButtonRoundTrip: () => cy.get('input[type="radio"][value="Round trip"]'),

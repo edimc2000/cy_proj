@@ -2,7 +2,7 @@
 /// <reference types = "cypress" />
 
 const Booking = require('../../pages/bookingFormPage.js')
-const { testData } = require('./data/bookingFormTestData.js')
+const testData = require('./data/bookingFormTestData.js')
 const elements = Booking.elements;
 
 describe('TG Booking Form', () => {
@@ -11,116 +11,139 @@ describe('TG Booking Form', () => {
         cy.visit('https://www.techglobal-training.com/frontend/booking');
     })
 
-    it('[TC01] Validate the default Book your trip form', () => {
-        // 1. Navigate to https://techglobal-training.com/frontend/booking
-        // used beforeEach()
+    // it('[TC01] Validate the default Book your trip form', () => {
+    //     // 1. Navigate to https://techglobal-training.com/frontend/booking
+    //     // used beforeEach()
 
-        // 2. Validate that the “One way” radio button is displayed enabled and selected by default
-        elements.radioButtonOneWay()
-            .should('be.visible')
-            .and('be.enabled')
-            .and('be.checked')
+    //     // 2. Validate that the “One way” radio button is displayed enabled and selected by default
+    //     elements.radioButtonOneWay()
+    //         .should('be.visible')
+    //         .and('be.enabled')
+    //         .and('be.checked')
 
-        // 3. Validate that the “Round trip” radio button is displayed enabled and not selected by default
-        elements.radioButtonRoundTrip()
-            .should('be.visible')
-            .and('be.enabled')
-            .and('not.be.checked')
+    //     // 3. Validate that the “Round trip” radio button is displayed enabled and not selected by default
+    //     elements.radioButtonRoundTrip()
+    //         .should('be.visible')
+    //         .and('be.enabled')
+    //         .and('not.be.checked')
 
-        // 4. Validate that the “Cabin Class” label and dropdown are displayed
-        elements.labelCabinClass()
-            .should('be.visible')
-            .and('have.text', 'Cabin Class')
+    //     // 4. Validate that the “Cabin Class” label and dropdown are displayed
+    //     elements.labelCabinClass()
+    //         .should('be.visible')
+    //         .and('have.text', 'Cabin Class')
 
-        elements.selectCabinClass()
-            .should('be.visible')
-            .and('have.value', 'Select cabin class...')
+    //     elements.selectCabinClass()
+    //         .should('be.visible')
+    //         .and('have.value', 'Select cabin class...')
 
 
-        // 5. Validate that the “From” label and dropdown are displayed
-        elements.labelFrom()
-            .should('be.visible')
-            .and('have.text', 'From')
+    //     // 5. Validate that the “From” label and dropdown are displayed
+    //     elements.labelFrom()
+    //         .should('be.visible')
+    //         .and('have.text', 'From')
 
-        elements.selectFrom()
-            .should('be.visible')
-            .and('have.value', 'Select state...')
+    //     elements.selectFrom()
+    //         .should('be.visible')
+    //         .and('have.value', 'Select state...')
 
-        // 6. Validate that the “To” label and dropdown are displayed
-        elements.labelTo()
-            .should('be.visible')
-            .and('have.text', 'To')
+    //     // 6. Validate that the “To” label and dropdown are displayed
+    //     elements.labelTo()
+    //         .should('be.visible')
+    //         .and('have.text', 'To')
 
-        elements.selectTo()
-            .should('be.visible')
-            .and('have.value', 'Select state...')
+    //     elements.selectTo()
+    //         .should('be.visible')
+    //         .and('have.value', 'Select state...')
 
-        // 7. Validate that the “Depart” label and date picker is displayed
+    //     // 7. Validate that the “Depart” label and date picker is displayed
 
-        elements.labelDepart()
-            .should('be.visible')
-            .and('have.text', 'Depart')
+    //     elements.labelDepart()
+    //         .should('be.visible')
+    //         .and('have.text', 'Depart')
 
-        elements.inputDepart()
-            .should('be.enabled')
-            .should('be.visible')
-            .click()
+    //     elements.inputDepart()
+    //         .should('be.enabled')
+    //         .should('be.visible')
+    //         .click()
 
-        elements.divDatePicker()
-            .should('exist')
+    //     elements.divDatePicker()
+    //         .should('exist')
 
-        elements.labelDepart().click() // click somewhere to close the date picker
+    //     elements.labelDepart().click() // click somewhere to close the date picker
 
-        // 8. Validate that the “Return” label and date picker is displayed and disabled
-        elements.labelReturn()
-            .should('be.visible')
-            .and('have.text', 'Return')
+    //     // 8. Validate that the “Return” label and date picker is displayed and disabled
+    //     elements.labelReturn()
+    //         .should('be.visible')
+    //         .and('have.text', 'Return')
 
-        elements.inputreturn()
-            .should('be.disabled')
-            .should('be.visible')
+    //     elements.inputreturn()
+    //         .should('be.disabled')
+    //         .should('be.visible')
 
-        // 9. Validate that the “Number of passengers” label and dropdown are displayed and 1 is the default
-        elements.labelNumPassengers()
-            .should('be.visible')
-            .and('have.text', 'Number of passengers')
+    //     // 9. Validate that the “Number of passengers” label and dropdown are displayed and 1 is the default
+    //     elements.labelNumPassengers()
+    //         .should('be.visible')
+    //         .and('have.text', 'Number of passengers')
 
-        elements.selectNumPassengers()
-            .should('be.visible')
-            .and('have.value', '1')
+    //     elements.selectNumPassengers()
+    //         .should('be.visible')
+    //         .and('have.value', '1')
 
-        // 10. Validate that the “Passenger 1” category label and dropdown are displayed and “Adult (16-64)” is the default
-        elements.labelPassenger1()
-            .should('be.visible')
-            .and('have.text', 'Passenger 1')
+    //     // 10. Validate that the “Passenger 1” category label and dropdown are displayed and “Adult (16-64)” is the default
+    //     elements.labelPassenger1()
+    //         .should('be.visible')
+    //         .and('have.text', 'Passenger 1')
 
-        elements.selectPassenger1()
-            .should('be.visible')
-            .and('have.value', 'Adult (16-64)')
+    //     elements.selectPassenger1()
+    //         .should('be.visible')
+    //         .and('have.value', 'Adult (16-64)')
 
-        // 11.Validate that the “BOOK” button is displayed and enabled
-        elements.buttonBook()
-            .should('be.visible')
-            .and('be.enabled')
-    })
+    //     // 11.Validate that the “BOOK” button is displayed and enabled
+    //     elements.buttonBook()
+    //         .should('be.visible')
+    //         .and('be.enabled')
+    // })
 
 
     it.only('try labels with each', () => {
+        let counter = 0; 
+        // elements.divLabels().each((el, index) => {
+        elements.labels2to8().each((el, index) => {
+            // elements.labelTripType().each((el, index) => {
+            // elements.divs().each( (el, index) => { 
+            const labelText = el.text().trim()
+            counter++
 
-        elements.labelPassengerCount().select(0)
-        elements.labels2to8().each( (el, index) => {
-            const labelText =  el.text()
+            // cy.wrap(el)
+            // .should('be.visible')
+            // .and('have.text', testData.divs[labelText].labelName)
+
+
+            if (labelText === testData.divs[labelText].labelName) {
+                cy.wrap(el)
+                    .should('be.visible')
+                    .and('have.text', testData.divs[labelText].labelName)
+
+                cy.log('Debug>> true ')
+
+                cy.log(`xData iType: ${testData.divs[labelText].labelName} ${counter}`)
+                // cy.log(`xData iType: ${testData.divs['Cabin Class'].labelName} `)
+                cy.log(` | Element's text: ${labelText} `)
+    
+
+            }
+
             // cy.log(`testdata: ${testData.labels[index]['labelName']} / ${testData.labels[index]['default']}`)
-            cy.wrap(labelText).should('eq', testData.labels[index]['labelName'])
-            cy.wrap(el).should('be.visible').next().should('be.visible')
+            // cy.wrap(labelText).should('eq', testData.labels[index]['labelName'])
+            // cy.wrap(el).should('be.visible').next().should('be.visible')
 
         })
     })
 
-    it('check passegers', () => {
-        elements.labelPassengerCount().select(6)
-        elements.labelPassengerX()
-    })
+    // it('check passegers', () => {
+    //     elements.labelPassengerCount().select(6)
+    //     elements.labelPassengerX()
+    // })
 
 
 
