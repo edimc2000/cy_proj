@@ -105,26 +105,56 @@ describe('TG Booking Form', () => {
     // })
 
 
-    it.only('try labels with each', () => {
+    it.only('[TC01] Validate the default Book your trip form', () => {
         elements.divLabels().each((el, index) => {
             const labelText = el.text()
-            
-            if(labelText === testData.divs[labelText].labelName) {
-                if (labelText === testData.mainLabelException){
-                    elements.radioButtons() /*********   USE EACh To BE CONTINUED  */
 
+            if (labelText === testData.divs[labelText].labelName) {
+                if (labelText === testData.mainLabelException) {
+                    elements.radioButtons().each(el => {
+                        const radioText = el.text()
+                        cy.log(`${labelText} > ${radioText} - RADIO and LABEL assertions  visibility and string matching`)
+                        if (radioText === testData.radioButtons[radioText].labelName) {
+                            cy.wrap(el)
+                                .should('be.visible')
+                                .and('have.text', testData.radioButtons[radioText].labelName)
+                                .children()
+                                .should(testData.radioButtons[radioText].assertChecked)
+                                .and(testData.radioButtons[radioText].assertEnabled)
+                                .and(testData.radioButtons[radioText].assertVisibility)
+                        }
+                    })
                 } else {
-                cy.wrap(el)
-                    .should('be.visible')
-                    .and('have.text', testData.divs[labelText].labelName)
-                    
-                cy.log('MAIN LABEL assertions  visibility and string matching ')
+                    cy.log(`${labelText} - MAIN LABEL assertions  visibility and string matching`)
+                    cy.wrap(el)
+                        .should('be.visible')
+                        .and('have.text', testData.divs[labelText].labelName)
+                        .next().children().then((el) => {
+                            const tagName = el.prop('tagName')
+                            if (tagName === "SELECT") {
+                                cy.log(`${labelText} > ${tagName} - Drop Down input Assertions - visibility and clikability`)
+                                cy.wrap(el)
+                                    .should(testData.divs[labelText].assertInputElement.assertEnabled)
+                                    .and(testData.divs[labelText].assertInputElement.assertVisibility)
+                                if (labelText === 'Passenger 1') {
+                                    cy.wrap(el).should('have.value', testData.divs[labelText].defaultValue)
+                                }
+                                if (labelText === 'Number of passengers') {
+                                    cy.wrap(el).should('have.value', testData.divs[labelText].defaultValue)
+                                }
 
+                            } else {
+                                cy.log(`${labelText} > ${tagName} -  Datepicker input Assertions - visibility and clikability`)
+                                cy.wrap(el).find('[type="text"]')
+                                    .should(testData.divs[labelText].assertInputElement.assertEnabled)
+                                    .and(testData.divs[labelText].assertInputElement.assertVisibility)
+                            }
+                        })
                 }
-
             }
-
         })
+
+        // validate the button - BOOK 
     })
 
 
