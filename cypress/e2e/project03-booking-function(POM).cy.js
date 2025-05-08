@@ -1,5 +1,6 @@
 // POM based
 /// <reference types = "cypress" />
+require('cypress-plugin-steps')
 
 const Booking = require('../../pages/bookingFormPage.js')
 const testData = require('./data/bookingFormTestData.js')
@@ -11,151 +12,92 @@ describe('TG Booking Form', () => {
         cy.visit('https://www.techglobal-training.com/frontend/booking');
     })
 
-    // it('[TC01] Validate the default Book your trip form', () => {
-    //     // 1. Navigate to https://techglobal-training.com/frontend/booking
-    //     // used beforeEach()
-
-    //     // 2. Validate that the “One way” radio button is displayed enabled and selected by default
-    //     elements.radioButtonOneWay()
-    //         .should('be.visible')
-    //         .and('be.enabled')
-    //         .and('be.checked')
-
-    //     // 3. Validate that the “Round trip” radio button is displayed enabled and not selected by default
-    //     elements.radioButtonRoundTrip()
-    //         .should('be.visible')
-    //         .and('be.enabled')
-    //         .and('not.be.checked')
-
-    //     // 4. Validate that the “Cabin Class” label and dropdown are displayed
-    //     elements.labelCabinClass()
-    //         .should('be.visible')
-    //         .and('have.text', 'Cabin Class')
-
-    //     elements.selectCabinClass()
-    //         .should('be.visible')
-    //         .and('have.value', 'Select cabin class...')
-
-
-    //     // 5. Validate that the “From” label and dropdown are displayed
-    //     elements.labelFrom()
-    //         .should('be.visible')
-    //         .and('have.text', 'From')
-
-    //     elements.selectFrom()
-    //         .should('be.visible')
-    //         .and('have.value', 'Select state...')
-
-    //     // 6. Validate that the “To” label and dropdown are displayed
-    //     elements.labelTo()
-    //         .should('be.visible')
-    //         .and('have.text', 'To')
-
-    //     elements.selectTo()
-    //         .should('be.visible')
-    //         .and('have.value', 'Select state...')
-
-    //     // 7. Validate that the “Depart” label and date picker is displayed
-
-    //     elements.labelDepart()
-    //         .should('be.visible')
-    //         .and('have.text', 'Depart')
-
-    //     elements.inputDepart()
-    //         .should('be.enabled')
-    //         .should('be.visible')
-    //         .click()
-
-    //     elements.divDatePicker()
-    //         .should('exist')
-
-    //     elements.labelDepart().click() // click somewhere to close the date picker
-
-    //     // 8. Validate that the “Return” label and date picker is displayed and disabled
-    //     elements.labelReturn()
-    //         .should('be.visible')
-    //         .and('have.text', 'Return')
-
-    //     elements.inputreturn()
-    //         .should('be.disabled')
-    //         .should('be.visible')
-
-    //     // 9. Validate that the “Number of passengers” label and dropdown are displayed and 1 is the default
-    //     elements.labelNumPassengers()
-    //         .should('be.visible')
-    //         .and('have.text', 'Number of passengers')
-
-    //     elements.selectNumPassengers()
-    //         .should('be.visible')
-    //         .and('have.value', '1')
-
-    //     // 10. Validate that the “Passenger 1” category label and dropdown are displayed and “Adult (16-64)” is the default
-    //     elements.labelPassenger1()
-    //         .should('be.visible')
-    //         .and('have.text', 'Passenger 1')
-
-    //     elements.selectPassenger1()
-    //         .should('be.visible')
-    //         .and('have.value', 'Adult (16-64)')
-
-    //     // 11.Validate that the “BOOK” button is displayed and enabled
-    //     elements.buttonBook()
-    //         .should('be.visible')
-    //         .and('be.enabled')
-    // })
-
-
     it.only('[TC01] Validate the default Book your trip form', () => {
+        validateBookingForm('', 'One Way')
+    })
+
+    it.only('[TC02] - Validate the Book your trip form when Round trip is selected', () => {
+        elements.radioRT().check()
+        validateBookingForm('', 'Round trip')
+    })
+
+
+})
+
+
+const validateBookingForm = (group, radio) => {
+    { // validates labels' visibility and string value, validates inputs' 
+        // clickability, visibility and default values and states 
+        let radioVar
+        radio === "One Way" ? radioVar = testData.radioButtons : radioVar = testData.radioButtonsRT
         elements.divLabels().each((el, index) => {
             const labelText = el.text()
+            const labelObj = testData.divs[labelText]
+            const labelObjAssert = testData.divs[labelText].assertInputElement
 
+            cy.section(`VALIDATING ${labelText} label and input elements`)
             if (labelText === testData.divs[labelText].labelName) {
                 if (labelText === testData.mainLabelException) {
                     elements.radioButtons().each(el => {
                         const radioText = el.text()
-                        cy.log(`${labelText} > ${radioText} - RADIO and LABEL assertions  visibility and string matching`)
-                        if (radioText === testData.radioButtons[radioText].labelName) {
+                        const radioObj = radioVar[radioText]
+
+                        cy.step(`${labelText} > ${radioText} - RADIO and LABEL assertions  visibility and string matching`)
+                        if (radioText === radioObj.labelName) {
                             cy.wrap(el)
-                                .should('be.visible')
-                                .and('have.text', testData.radioButtons[radioText].labelName)
+                                .should(radioObj.assertVisibility)
+                                .and('have.text', radioObj.labelName)
                                 .children()
-                                .should(testData.radioButtons[radioText].assertChecked)
-                                .and(testData.radioButtons[radioText].assertEnabled)
-                                .and(testData.radioButtons[radioText].assertVisibility)
+                                .should(radioObj.assertChecked)
+                                .and(radioObj.assertEnabled)
+                                .and(radioObj.assertVisibility)
                         }
                     })
                 } else {
-                    cy.log(`${labelText} - MAIN LABEL assertions  visibility and string matching`)
+                    cy.step(`${labelText} - MAIN LABEL assertions  visibility and string matching`)
                     cy.wrap(el)
-                        .should('be.visible')
-                        .and('have.text', testData.divs[labelText].labelName)
+                        .should(labelObjAssert.assertVisibility)
+                        .and('have.text', labelObj.labelName)
                         .next().children().then((el) => {
                             const tagName = el.prop('tagName')
                             if (tagName === "SELECT") {
-                                cy.log(`${labelText} > ${tagName} - Drop Down input Assertions - visibility and clikability`)
+                                cy.step(`${labelText} > ${tagName} - Drop Down input Assertions - visibility and clikability`)
                                 cy.wrap(el)
-                                    .should(testData.divs[labelText].assertInputElement.assertEnabled)
-                                    .and(testData.divs[labelText].assertInputElement.assertVisibility)
+                                    .should(labelObjAssert.assertEnabled)
+                                    .and(labelObjAssert.assertVisibility)
                                 if (labelText === 'Passenger 1') {
-                                    cy.wrap(el).should('have.value', testData.divs[labelText].defaultValue)
+                                    cy.wrap(el).should('have.value', labelObj.defaultValue)
                                 }
                                 if (labelText === 'Number of passengers') {
-                                    cy.wrap(el).should('have.value', testData.divs[labelText].defaultValue)
+                                    cy.wrap(el).should('have.value', labelObj.defaultValue)
                                 }
 
+
+
                             } else {
-                                cy.log(`${labelText} > ${tagName} -  Datepicker input Assertions - visibility and clikability`)
-                                cy.wrap(el).find('[type="text"]')
-                                    .should(testData.divs[labelText].assertInputElement.assertEnabled)
-                                    .and(testData.divs[labelText].assertInputElement.assertVisibility)
+                                cy.step(`${labelText} > ${tagName} -  Datepicker input Assertions - visibility and clikability`)                                  
+                                if (labelText === 'Return' && radio !== "One Way") {
+                                    cy.log('*/*/*/*/*/*/*/*/*/*/*/*/*/*/')
+                                    cy.wrap(el).find('[type="text"]')
+                                    .should(labelObjAssert.assertVisibility)
+                                    .should(labelObjAssert.assertEnabledRT)
+                                } else{
+                                    cy.wrap(el).find('[type="text"]')
+                                    .and(labelObjAssert.assertVisibility)
+                                    .should(labelObjAssert.assertEnabled)
+                                }
+
                             }
                         })
                 }
             }
         })
+    }
 
-        // validate the button - BOOK 
-    })
-
-
-})
+    cy.section(`BOOK - validating the button`)
+    cy.step('BOOK - validate the button - string value, visibility, clickability')
+    elements.buttonBook()
+        .should('be.visible')
+        .and('have.text', 'BOOK')
+        .and('be.enabled')
+}

@@ -7,7 +7,6 @@ class testData {
 
 
     radioButtons = {
-
         'One way': {
             inputType: this.inputTypes['attrRadio'][0],
             labelName: 'One way',
@@ -20,6 +19,24 @@ class testData {
             inputType: this.inputTypes['attrRadio'][0],
             labelName: 'Round trip',
             assertChecked: 'not.be.checked',
+            assertEnabled: 'be.enabled',
+            assertVisibility: 'be.visible',
+        },
+    }
+    
+    radioButtonsRT = {
+        'One way': {
+            inputType: this.inputTypes['attrRadio'][0],
+            labelName: 'One way',
+            assertChecked: 'not.be.checked',
+            assertEnabled: 'be.enabled',
+            assertVisibility: 'be.visible',
+        },
+
+        'Round trip': {
+            inputType: this.inputTypes['attrRadio'][0],
+            labelName: 'Round trip',
+            assertChecked: 'be.checked',
             assertEnabled: 'be.enabled',
             assertVisibility: 'be.visible',
         },
@@ -82,7 +99,9 @@ class testData {
             defaultValue: '',
             assertInputElement:{
                 assertEnabled: 'not.be.enabled',
+                assertEnabledRT: 'be.enabled',
                 assertVisibility: 'be.visible',
+                
             }
         },
 
