@@ -1,7 +1,7 @@
 // POM based
 /// <reference types = "cypress" />
 
-const loginPage = require('../../pages/loginFormPage.js')
+const loginPage = require('../pages/loginFormPage.js')
 const { testData } = require('./data/loginFormTestData.js')
 const elements = loginPage.elements;
 

@@ -2,7 +2,7 @@
 /// <reference types = "cypress" />
 require('cypress-plugin-steps')
 
-const Booking = require('../../pages/bookingFormPage.js')
+const Booking = require('../pages/bookingFormPage.js')
 const testData = require('./data/bookingFormTestData.js')
 const elements = Booking.elements;
 
