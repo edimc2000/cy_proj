@@ -12,18 +12,51 @@ describe('TG Booking Form', () => {
         cy.visit('https://www.techglobal-training.com/frontend/booking');
     })
 
-    it.only('[TC01] Validate the default Book your trip form', () => {
+    it('[TC01] Validate the default Book your trip form', () => {
         validateBookingForm('', 'One Way')
     })
 
-    it.only('[TC02] - Validate the Book your trip form when Round trip is selected', () => {
+    it('[TC02] - Validate the Book your trip form when Round trip is selected', () => {
         elements.radioRT().check()
         validateBookingForm('', 'Round trip')
+    })
+
+    it.only('[TC03] - Validate the Book your trip form when Round trip is selected', () => {
+        const fromValue = 'IL'
+        const toValue= 'FL'
+        elements.radioOW.check        
+        elements.selectCabinClass().select('Business')
+        elements.selectFrom().select(fromValue)
+        elements.selectTo().select(toValue)
+        elements.inputDepart().clear().type(oneWeekFromNow())
+        elements.root().click()
+        elements.selectNumPassengers().select('1')
+        elements.selectPassenger1().select('Adult (16-64)')
+        elements.buttonBook().click()
+        // validate the summary 
+        // elements.divSummary().should('have.text', 'DEPART')////
+        elements.divSummary().children()
+        
+        
+        .next()
+        elements.divSummary().contains(`${fromValue} to ${toValue}`)////
+
     })
 
 
 })
 
+
+const oneWeekFromNow = (() => {
+    const date = new Date();
+    date.setDate(date.getDate() + 7); 
+    
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+    const day = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear().toString().slice(-2); 
+    
+    return `${month}/${day}/${year}`;
+  });
 
 const validateBookingForm = (group, radio) => {
     { // validates labels' visibility and string value, validates inputs' 
