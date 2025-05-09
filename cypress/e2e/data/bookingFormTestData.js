@@ -128,7 +128,7 @@ class testData {
         'Passenger 2': {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'Passenger 1',
-            defaultValue: 'Adult (16-64)',
+            defaultValue: 'Child (2-11)',
             assertInputElement:{
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',

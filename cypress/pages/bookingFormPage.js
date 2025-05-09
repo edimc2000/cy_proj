@@ -12,27 +12,25 @@ class Booking {
         selectFrom: () => cy.get(':nth-child(3) > div.select > select'),
         selectTo: () => cy.get(':nth-child(4) > div.select > select'),
         inputDepart: () => cy.get(':nth-child(5) > div input'),
-        inputreturn: () => cy.get(':nth-child(6) > div input'),
+        inputReturn: () => cy.get(':nth-child(6) > div input'),
         selectNumPassengers: () => cy.get(':nth-child(7) > div.select > select'),
+        
+        divSummary: () => cy.get('div .ml-3 > div'),
         selectPassenger1: () => cy.get(':nth-child(8) > div.select > select'),
-        divSummary: () => cy.get('div .ml-3'),
+        selectPassenger2: () => cy.get(':nth-child(9) > div.select > select'),
+        selectPassenger3: () => cy.get(':nth-child(10) > div.select > select'),
+        selectPassenger4: () => cy.get(':nth-child(11) > div.select > select'),
+        selectPassenger5: () => cy.get(':nth-child(12) > div.select > select'),
+        selectPassenger6: () => cy.get(':nth-child(13) > div.select > select'),
+        selectPassenger7: () => cy.get(':nth-child(14) > div.select > select'),
+        selectPassenger8: () => cy.get(':nth-child(15) > div.select > select'),
+        selectPassenger9: () => cy.get(':nth-child(16) > div.select > select'),
         // debugging selectors 
-
-
-        inputreturn: () => cy.get(':nth-child(6) > div input'),
 
         labels2to8: () => cy.get(':nth-child(n+2):nth-child(-n+16)> label.label'),
         labels1to2: () => cy.get(':nth-child(n+1):nth-child(-n+3)> label.label'),
 
-
-
-
-
-
-       
-        selectPassenger1: () => cy.get(':nth-child(8) > div.select').children(),
-
-
+   
         //// some test selectors to be removed later
         //************************************************** */
         labelPassengerCount: () => cy.get(':nth-child(7) > div.select select'),
