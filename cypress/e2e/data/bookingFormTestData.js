@@ -1,10 +1,11 @@
-class testData {
+class TestData {
+    mainLabelException = 'Trip type'
+
     inputTypes = {
         attrRadio: ['radio', '[input="radio"]'],
         attrText: ['text', '[type="text"]'],
         tagSelect: ['select', 'select'],
     }
-
 
     radioButtons = {
         'One way': {
@@ -23,7 +24,7 @@ class testData {
             assertVisibility: 'be.visible',
         },
     }
-    
+
     radioButtonsRT = {
         'One way': {
             inputType: this.inputTypes['attrRadio'][0],
@@ -47,7 +48,7 @@ class testData {
             inputType: this.inputTypes['attrRadio'][0],
             labelName: 'Trip type',
             defaultValue: '',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -57,7 +58,7 @@ class testData {
             inputType: this.inputTypes.tagSelect,
             labelName: 'Cabin Class',
             defaultValue: 'Select cabin class...',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -67,7 +68,7 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'From',
             defaultValue: 'Select state...',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -77,7 +78,7 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'To',
             defaultValue: 'Select state...',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -87,7 +88,7 @@ class testData {
             inputType: this.inputTypes['attrText'],
             labelName: 'Depart',
             defaultValue: '',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -97,11 +98,11 @@ class testData {
             inputType: this.inputTypes['attrText'],
             labelName: 'Return',
             defaultValue: '',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'not.be.enabled',
                 assertEnabledRT: 'be.enabled',
                 assertVisibility: 'be.visible',
-                
+
             }
         },
 
@@ -109,7 +110,7 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'Number of passengers',
             defaultValue: '1',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -119,7 +120,7 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -129,7 +130,7 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'Passenger 1',
             defaultValue: 'Child (2-11)',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -139,7 +140,7 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -149,7 +150,7 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -159,7 +160,7 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -169,7 +170,7 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -179,7 +180,7 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -189,7 +190,7 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
@@ -199,18 +200,42 @@ class testData {
             inputType: this.inputTypes['tagSelect'],
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
-            assertInputElement:{
+            assertInputElement: {
                 assertEnabled: 'be.enabled',
                 assertVisibility: 'be.visible',
             }
         },
     }
 
-    mainLabelException = 'Trip type'
+    testDates = () => {
+        /*
+         checks date now 05/08/2025 and output date after 7 days and 30 days later 
+         example {dDate: '05/15/2025', rDate: '06/15/2025'} 
+        */
+
+        const nextWeek = new Date()
+        nextWeek.setDate(nextWeek.getDate() + 7)
+        const nextMonth = new Date()
+        nextMonth.setDate(nextMonth.getDate() + 30)
+
+        const fourWeeks = (nextMonth.getMonth() + 1).toString().padStart(2, '0')
+        const month = (nextWeek.getMonth() + 1).toString().padStart(2, '0')
+        const day = nextWeek.getDate().toString().padStart(2, '0')
+        const year = nextWeek.getFullYear().toString()//.slice(-2)
+
+        const tripDate = {
+            dDate: `${month}/${day}/${year}`,
+            rDate: `${fourWeeks}/${day}/${year}`
+        }
+
+        return tripDate
+
+    }
+
 
 }
 
 
-module.exports = new testData()
+module.exports = new TestData()
 
 
