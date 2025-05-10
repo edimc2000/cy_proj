@@ -25,23 +25,7 @@ class Booking {
         selectPassenger7: () => cy.get(':nth-child(14) > div.select > select'),
         selectPassenger8: () => cy.get(':nth-child(15) > div.select > select'),
         selectPassenger9: () => cy.get(':nth-child(16) > div.select > select'),
-        // debugging selectors 
-
-        labels2to8: () => cy.get(':nth-child(n+2):nth-child(-n+16)> label.label'),
-        labels1to2: () => cy.get(':nth-child(n+1):nth-child(-n+3)> label.label'),
-
-   
-        //// some test selectors to be removed later
-        //************************************************** */
-        labelPassengerCount: () => cy.get(':nth-child(7) > div.select select'),
-        labelPassengerX: () => cy.get(':nth-child(n+8) > label.label'),
-        errorMessage: () => cy.get('.notification.is-danger')
-        //************************************************** */
-
-
     }
-
-
 
 }
 
