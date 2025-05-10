@@ -1,4 +1,4 @@
-// POM based
+
 /// <reference types = "cypress" />
 require('cypress-plugin-steps')
 const dynamicTable = require('../pages/dynamicTablePage')
@@ -36,19 +36,46 @@ describe('TG Booking Form', () => {
         elements.buttonAddProduct()
             .should('be.enabled')
             .and('be.visible')
-            .and('have.text', testData.buttonLabel)
+            .and('have.text', testData.buttonAddProductLabel)
 
-        cy.step('Add Product Button')
+        cy.step('Total Amount')
         elements.totalAmount()
             .should('be.visible')
             .and('have.text', testData.totalAmountDefault)
-
-
     })
 
     it.only('[TC02] Validate the Add New Product modal', () => {
-        
 
+        elements.buttonAddProduct().click()
+        cy.step('Validate modal title')
+        elements.modalTitle()
+            .should('be.visible')
+            .and('have.text', testData.modalTitle)
+
+        cy.step('Validate modal close button clickability and visibility')
+        elements.modalCloseButton()
+            .should('be.visible')
+            .and('be.enabled')
+
+        cy.step('Validate modal input labels string value and visibility')
+        elements.modalInputLabels().each((el, index) => {
+            cy.wrap(el)
+                .should('have.text', testData.modalInputLabel[index])
+                .and('be.visible')
+        })
+
+        cy.step('Validate modal input boxes clickability and visibility')
+        elements.modalInputBoxes().each((el, index) => {
+            cy.wrap(el)
+                .should('be.enabled')
+                .and('be.visible')
+        })
+
+        cy.step('Validate modal submit button')
+        elements.modalSubmitButton()
+            .should('have.text', testData.buttonSubmitLabel)
+            .and('be.visible')
+            .and('be.enabled')
     })
 
     it('[TC03] Validate the Add New Product modal X button', () => {

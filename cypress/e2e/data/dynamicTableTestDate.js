@@ -3,8 +3,15 @@ class TestData {
 
     tableHeaders = ['Quantity', 'Product', 'Price $', 'Total $']
     tableName = 'Inventory'
-    buttonLabel = 'ADD PRODUCT'
+    buttonAddProductLabel = 'ADD PRODUCT'
+    buttonSubmitLabel = 'SUBMIT'
+
     totalAmountDefault = 'Total = $2,300'
+
+    modalTitle = 'Add New Product'
+    modalInputLabel= ['Please select the quantity','Please enter the name of the product','Please enter the price of the product']
+    
+
 
     deafultContent = [
         {
