@@ -11,9 +11,7 @@ class TestData {
     modalTitle = 'Add New Product'
     modalInputLabel= ['Please select the quantity','Please enter the name of the product','Please enter the price of the product']
     
-
-
-    deafultContent = [
+    defaultContent = [
         {
             Quantity: 1,
             Product: 'iPhone',
@@ -32,8 +30,16 @@ class TestData {
             'Price $': '500',
             'Total $': '1,000'
         }
-
     ]
+
+    addTestProduct = [
+        {
+            Quantity: 2,
+            Product: 'Mouse',
+            'Price $': '100',
+            'Total $': '200'
+        },
+      ]
 
 }
 

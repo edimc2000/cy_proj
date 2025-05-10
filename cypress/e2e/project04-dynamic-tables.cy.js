@@ -2,7 +2,7 @@
 /// <reference types = "cypress" />
 require('cypress-plugin-steps')
 const dynamicTable = require('../pages/dynamicTablePage')
-const testData = require('./data/dynamicTableTestDate')
+const testData = require('./data/dynamicTableTestData')
 const elements = dynamicTable.elements
 
 
@@ -27,7 +27,7 @@ describe('TG Booking Form', () => {
         elements.tableBody().each((tbody, index1) => {
             cy.step(`Validating Row ${index1 + 1} - values and visibility `)
             cy.wrap(tbody).children().each((content, index2) => {
-                let productQuery = testData.deafultContent[index1][testData.tableHeaders[index2]]
+                let productQuery = testData.defaultContent[index1][testData.tableHeaders[index2]]
                 cy.wrap(content).should('have.text', productQuery).and('be.visible')
             })
         })
@@ -78,7 +78,7 @@ describe('TG Booking Form', () => {
             .and('be.enabled')
     })
 
-    it.only('[TC03] Validate the Add New Product modal X button', () => {
+    it('[TC03] Validate the Add New Product modal X button', () => {
         elements.buttonAddProduct().click()
         cy.step('Validate modal title')
         elements.modalTitle()
@@ -86,12 +86,12 @@ describe('TG Booking Form', () => {
             .and('have.text', testData.modalTitle)
 
         elements.modalCloseButton().click()
-        elements.modalTitle().should('not.be.visible')
-
-
+        elements.modalTitle().should('not.exist')
     })
-    it('[TC04] Validate the new product added', () => {
-
+    it.only('[TC04] Validate the new product added', () => {
+        elements.buttonAddProduct().click()
+        dynamicTable.addProduct(testData.addTestProduct[0]['Quantity'], testData.addTestProduct[0]['Product'], testData.addTestProduct[0]['Price $'])
+        elements.modalSubmitButton().click()
     })
 
 

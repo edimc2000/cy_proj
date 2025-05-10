@@ -1,5 +1,6 @@
+// POM based
 /// <reference types = "cypress" />
-require('cypress-plugin-steps')
+
 const loginPage = require('../pages/loginFormPage.js')
 const { testData } = require('./data/loginFormTestData.js')
 const elements = loginPage.elements;
@@ -10,52 +11,75 @@ describe('TG Login Form', () => {
     })
 
     it('[TC01] Validate the login form', () => {
-        // steps 2 to 7    
-        cy.section('Validate labels and input boxes attr')
-        elements.divLabels().each((el, index) => {
-            cy.step(`${testData.inputlabels[index]} clickability, attr, visibility, string value`)
-            cy.wrap(el)
-                .should('be.visible')
-                .and('have.text', testData.inputlabels[index])
+        // 1. Navigate to https://techglobal-training.com/frontend/login
+        // cy.visit('https://www.techglobal-training.com/frontend/login')
 
-                .next()
-                .should('be.visible')
-                .and('be.enabled')
-                .and('not.have.attr', 'required')
-        })
+        // 2. Validate that the username input box is displayed
+        // 3. Validate that the username input box is not required
+         elements.userNameInputbox()
+            .should('be.visible')
+            .and('not.have.attr', 'required')
 
-        // steps 8 to 10
-        cy.section('Validate Login button and forgot password link')
-        cy.step('Login button')
+        // 4. Validate that the label of the username input box is “Please enter your username”
+        elements.userNameInputbox()
+            .parent()
+            .should('have.text', 'Please enter your username')
+
+        // 5. Validate that the password input box is displayed
+        // 6. Validate that the password input box is not required
+        elements.passwordInputbox()
+            .should('be.visible')
+            .and('not.have.attr', 'required')
+
+        // 7. Validate that the label of the password input box is “Please enter your password”
+        elements.passwordInputbox()
+            .parent()
+            .should('have.text', 'Please enter your password')
+
+        // 8. Validate the “LOGIN” button is displayed
+        // 9. Validate the “LOGIN” button is clickable
+        // 10. Validate that the button text is “LOGIN”
         elements.loginButton()
             .should('be.visible')
             .and('be.enabled')
-            .and('have.text', testData.loginButtonlabel)
+            .and('have.text', 'LOGIN')
 
-        // steps 11 to 13 
+        // 11. Validate the “Forgot Password?” link is displayed
+        // 12. Validate that the “Forgot Password?” link is clickable
+        // 13. Validate that the link text is “Forgot Password?”
+
         elements.forgotPasswordLink()
             .should('be.visible')
             .and('have.prop', 'tagName', 'A') // a tag for clickable assertion
-            .and('have.text', testData.forgotLabel)
+            .and('have.text', 'Forgot Password?')
             .click()
-        elements.modalTitle().should('be.visible') // secondary assertion, when it's clickable
+        elements.modalTitle().should('be.visible') // result when it's clickable
     })
 
     it('[TC02] Validate the successful login', () => {
-        //steps 2-4 
-        cy.step('Login with a valid account')
+        // 1. Navigate to https://techglobal-training.com/frontend/login
+        // used beforeEach()
+
+        // 2. Enter the username as “TechGlobal”
+        // 3. Enter the password as “Test1234”
+        // 4. Click on the “LOGIN” button
         loginPage.login(testData.validUserName, testData.validPassword)
 
-        //steps 5 -6 
-        cy.step('Validation when logged in ')
-        elements.successMessage().should('be.visible').and('have.text', testData.successMessage)
-        elements.logoutButton().should('be.visible').and('have.text', testData.logoutButtonlabel)
+        // 5. Validate the success message is displayed as “You are logged in”
+        elements.successMessage().should('be.visible').and('have.text', 'You are logged in')
+
+        // 6. Validate the logout button displayed with the text “LOGOUT”
+        elements.logoutButton().should('be.visible').and('have.text', 'LOGOUT')
     })
 
 
-    it.only('[TC03] Validate logout', () => {
-        //steps 2-4
-        cy.step('Login with a valid account')
+    it('[TC03] Validate logout', () => {
+        // 1. Navigate to https://techglobal-training.com/frontend/login
+        // used beforeEach()
+
+        // 2. Enter the username as “TechGlobal”
+        // 3. Enter the password as “Test1234”
+        // 4. Click on the “LOGIN” button
         loginPage.login(testData.validUserName, testData.validPassword)
 
         // 5. Click on the “LOGOUT” button

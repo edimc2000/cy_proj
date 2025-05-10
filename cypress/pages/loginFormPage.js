@@ -16,11 +16,14 @@ class LoginPage {
         modalEmailInputbox: () => cy.get('#email'),
         modalSubmitButton: () => cy.get('#submit'),
         modalConfirmationMessage: () => cy.get('#confirmation_message'),
+
+        divLabels : () => cy.get('div label'),
+
     }
 
-    login(username, password) {
-        this.elements.userNameInputbox().type(username)
-        this.elements.passwordInputbox().type(password)
+    login(username, password){
+        this.elements.userNameInputbox().type(username).should('have.value', username)
+        this.elements.passwordInputbox().type(password).should('have.value', password)
         this.elements.loginButton().click()
     }
 
@@ -32,7 +35,7 @@ class LoginPage {
     
     passwordReset(email) {
         this.elements.forgotPasswordLink().click()
-        this.elements.modalEmailInputbox().type(email)
+        this.elements.modalEmailInputbox().type(email).should('have.value', email)
         this.elements.modalSubmitButton().click()
     }
 }
