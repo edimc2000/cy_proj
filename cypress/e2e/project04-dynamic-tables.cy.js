@@ -44,7 +44,7 @@ describe('TG Booking Form', () => {
             .and('have.text', testData.totalAmountDefault)
     })
 
-    it.only('[TC02] Validate the Add New Product modal', () => {
+    it('[TC02] Validate the Add New Product modal', () => {
 
         elements.buttonAddProduct().click()
         cy.step('Validate modal title')
@@ -78,7 +78,16 @@ describe('TG Booking Form', () => {
             .and('be.enabled')
     })
 
-    it('[TC03] Validate the Add New Product modal X button', () => {
+    it.only('[TC03] Validate the Add New Product modal X button', () => {
+        elements.buttonAddProduct().click()
+        cy.step('Validate modal title')
+        elements.modalTitle()
+            .should('be.visible')
+            .and('have.text', testData.modalTitle)
+
+        elements.modalCloseButton().click()
+        elements.modalTitle().should('not.be.visible')
+
 
     })
     it('[TC04] Validate the new product added', () => {
