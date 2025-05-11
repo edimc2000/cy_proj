@@ -1,4 +1,3 @@
-// POM based
 /// <reference types = "cypress" />
 require('cypress-plugin-steps')
 require('cypress-real-events')
@@ -12,7 +11,6 @@ const elements = booking.elements;
 describe('TG Booking Form', () => {
 
     beforeEach(() => {
-
         cy.visit('https://www.techglobal-training.com/frontend/booking');
     })
 
