@@ -6,11 +6,11 @@ const elements = loginPage.elements
 
 describe('TG Login Form', () => {
     beforeEach(() => {
-        cy.visit('https://www.techglobal-training.com/frontend/login');
+        cy.visit('https://www.techglobal-training.com/frontend/login')
     })
 
     it.only('[TC01] Validate the login form', () => {
-        // steps 2 to 7    
+        // steps 2 to 7   labels and input boxes 
         elements.divLabels().each((el, index) => {
             cy.wrap(el)
                 .should('be.visible')
