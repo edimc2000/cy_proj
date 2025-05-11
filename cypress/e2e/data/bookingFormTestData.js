@@ -232,16 +232,19 @@ class TestData {
         nextWeek.setDate(nextWeek.getDate() + 7)
         const nextMonth = new Date()
         nextMonth.setDate(nextMonth.getDate() + 30)
+        const nextDay = new Date()
+        nextDay.setDate(nextDay.getDate() + 1)
 
         const fourWeeks = (nextMonth.getMonth() + 1).toString().padStart(2, '0')
         const month = (nextWeek.getMonth() + 1).toString().padStart(2, '0')
         const day = nextWeek.getDate().toString().padStart(2, '0')
+        const dateTomorrow = nextDay.getDate().toString().padStart(2, '0')
         const year = nextWeek.getFullYear().toString()//.slice(-2)
 
         const tripDate = {
             dDate: `${month}/${day}/${year}`,
             rDate: `${fourWeeks}/${day}/${year}`,
-            tomorrow: `${month}/${Number(day) + 1}/${year}`
+            tomorrow: `${month}/${dateTomorrow}/${year}`
         }
 
         return tripDate

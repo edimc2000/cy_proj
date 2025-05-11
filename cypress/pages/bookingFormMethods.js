@@ -82,7 +82,7 @@ class BookingMethods {
 
     bookTrip = (tripTypeInput, cabinClassInput, fromInput, toInput, numPassengersInput, departDateInput, returnDateInput, passenger1Input) => {
         cy.section(`Input trip details`)
-       
+
         const tripDate = testData.testDates()
 
         const cabinClass = cabinClassInput
@@ -110,10 +110,20 @@ class BookingMethods {
 
         if (tripType === 'Round trip') {
             elements.radioRT().check()
-            elements.inputReturn().clear().type(returnDate)
+            this.inputTripDetails(cabinClass, fromValue, toValue, departDate)
+            this.tripDatePicker(returnDate, elements.inputReturnElement)
+
         } else {
             elements.radioOW().check()
+            this.inputTripDetails(cabinClass, fromValue, toValue, departDate)
         }
+
+        // elements.selectCabinClass().select(cabinClass)
+        // elements.selectFrom().select(fromValue)
+        // elements.selectTo().select(toValue)
+        // this.tripDatePicker(departDate, elements.inputDepartElement)
+        // this.tripDatePicker(returnDate, elements.inputReturnElement)
+
 
         if (numPassengers > 1) {
             elements.selectNumPassengers().select(numPassengers)
@@ -124,15 +134,9 @@ class BookingMethods {
             elements.selectNumPassengers().select(numPassengers)
         }
 
-        elements.selectCabinClass().select(cabinClass)
-        elements.selectFrom().select(fromValue)
-        elements.selectTo().select(toValue)
-        elements.inputDepart().clear().type(departDate)
-        elements.root().click()
         elements.selectPassenger1().select(passenger1Input)
-
         elements.buttonBook().click()
- 
+
         elements.divSummary()
             .each(el => {
                 summaryContainers += 1
@@ -168,6 +172,29 @@ class BookingMethods {
                 }
 
             })
+    }
+
+
+    tripDatePicker = (strDate, datePickerElement) => {
+        let monthValueOnField
+        let numOfClicks
+        const formattedDateTesting = utils.convertDateFormatv2(strDate)
+
+        cy.get(datePickerElement).then(dateValue => {
+            monthValueOnField = dateValue.val()
+            numOfClicks = Number(strDate.slice(0, 2)) - Number(monthValueOnField.slice(0, 2))
+            cy.get(datePickerElement).click()
+            elements.datePickerButtonNext().realClick({ clickCount: numOfClicks })
+            cy.get(`[aria-label="Choose ${formattedDateTesting}"]`).realClick()
+        })
+    }
+
+
+    inputTripDetails = (cabinClass, fromValue, toValue, departDate) => {
+        elements.selectCabinClass().select(cabinClass)
+        elements.selectFrom().select(fromValue)
+        elements.selectTo().select(toValue)
+        this.tripDatePicker(departDate, elements.inputDepartElement)
     }
 
 

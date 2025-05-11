@@ -13,8 +13,15 @@ class Booking {
         selectTo: () => cy.get(':nth-child(4) > div.select > select'),
         inputDepart: () => cy.get(':nth-child(5) > div input', { timeout: 10000 }),
         inputReturn: () => cy.get(':nth-child(6) > div input'),
+
+
+        datePickerButtonNext: () =>cy.get('[aria-label="Next Month"]'), 
+        inputDepartElement: ':nth-child(5) > div input',
+        inputReturnElement: ':nth-child(6) > div input',
+
+
         selectNumPassengers: () => cy.get(':nth-child(7) > div.select > select'),
-        
+
         divSummary: () => cy.get('div .ml-3 > div'),
         selectPassenger1: () => cy.get(':nth-child(8) > div.select > select'),
         selectPassenger2: () => cy.get(':nth-child(9) > div.select > select'),
@@ -25,9 +32,9 @@ class Booking {
         selectPassenger7: () => cy.get(':nth-child(14) > div.select > select'),
         selectPassenger8: () => cy.get(':nth-child(15) > div.select > select'),
         selectPassenger9: () => cy.get(':nth-child(16) > div.select > select'),
-    
-    datePickerContainer: () => cy.get('.react-datepicker__month-container'), 
-    
+
+        datePickerContainer: () => cy.get('.react-datepicker__month-container'),
+
     }
 
 }
