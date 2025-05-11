@@ -56,7 +56,6 @@ class BookingMethods {
                                 } else {
                                     cy.step(`${labelText} > ${tagName} -  Datepicker input Assertions - visibility and clikability`)
                                     if (labelText === 'Return' && radio !== "One Way") {
-                                        cy.log('*/*/*/*/*/*/*/*/*/*/*/*/*/*/')
                                         cy.wrap(el).find('[type="text"]')
                                             .should(labelObjAssert.assertVisibility)
                                             .and(labelObjAssert.assertEnabledRT)
@@ -83,6 +82,7 @@ class BookingMethods {
 
     bookTrip = (tripTypeInput, cabinClassInput, fromInput, toInput, numPassengersInput, departDateInput, returnDateInput, passenger1Input) => {
         cy.section(`Input trip details`)
+       
         const tripDate = testData.testDates()
 
         const cabinClass = cabinClassInput
@@ -132,7 +132,7 @@ class BookingMethods {
         elements.selectPassenger1().select(passenger1Input)
 
         elements.buttonBook().click()
-
+ 
         elements.divSummary()
             .each(el => {
                 summaryContainers += 1

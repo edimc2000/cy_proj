@@ -225,7 +225,8 @@ class TestData {
 
         const tripDate = {
             dDate: `${month}/${day}/${year}`,
-            rDate: `${fourWeeks}/${day}/${year}`
+            rDate: `${fourWeeks}/${day}/${year}`,
+            tomorrow: `${month}/${Number(day)+1}/${year}`
         }
 
         return tripDate

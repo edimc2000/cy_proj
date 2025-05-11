@@ -1,6 +1,7 @@
 // POM based
 /// <reference types = "cypress" />
 require('cypress-plugin-steps')
+require('cypress-real-events')
 const booking = require('../pages/bookingFormPage.js')
 const testData = require('./data/bookingFormTestData.js')
 const utils = require('../utils/utils.js')
@@ -10,6 +11,7 @@ const elements = booking.elements;
 describe('TG Booking Form', () => {
 
     beforeEach(() => {
+
         cy.visit('https://www.techglobal-training.com/frontend/booking');
     })
 
@@ -26,10 +28,28 @@ describe('TG Booking Form', () => {
         bookingMethods.bookTrip('One Way', 'Business', 'IL', 'FL', '1', null, null, 'Senior (65+)')
     })
     it('[TC04] Validate the booking for 1 passenger and round trip', () => {
-        bookingMethods.bookTrip('Round trip', 'First', 'CA', 'IL', '1', '06/01/2025', '06/25/2025')
+        bookingMethods.bookTrip('Round trip', 'First', 'CA', 'IL', '1', null, null)
     })
 
     it('[TC05] Validate the booking for 2 passengers and one way', () => {
-        bookingMethods.bookTrip('One Way', 'Premium Economy', 'NY', 'TX', '2', '05/09/2025', '06/25/2025')
+        let departDate =  testData.testDates()
+        bookingMethods.bookTrip('One Way', 'Premium Economy', 'NY', 'TX', '2', departDate.tomorrow)
     })
+
+    it.only('[TC05] Validate the booking for 2 passengers and one way', () => {
+        
+        /// this is you date picker function
+        const dateTesting ='10/20/2025'   
+        const formattedDateTesting = utils.convertDateFormatv2(dateTesting)  
+               
+        elements.inputDepart().click()
+        elements.datePickerContainer()
+        elements.inputDepart().clear().type(dateTesting.slice(0,2))
+        cy.get(`[aria-label="Choose ${formattedDateTesting}"]`).click()
+        // cy.wait(2000)
+        // cy.get(`[aria-label="Choose ${formattedDateTesting}"]`).click()
+  
+    })
+
+
 })

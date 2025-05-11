@@ -11,7 +11,7 @@ class Booking {
         selectCabinClass: () => cy.get(':nth-child(2) > div.select > select'),
         selectFrom: () => cy.get(':nth-child(3) > div.select > select'),
         selectTo: () => cy.get(':nth-child(4) > div.select > select'),
-        inputDepart: () => cy.get(':nth-child(5) > div input'),
+        inputDepart: () => cy.get(':nth-child(5) > div input', { timeout: 10000 }),
         inputReturn: () => cy.get(':nth-child(6) > div input'),
         selectNumPassengers: () => cy.get(':nth-child(7) > div.select > select'),
         
@@ -25,6 +25,9 @@ class Booking {
         selectPassenger7: () => cy.get(':nth-child(14) > div.select > select'),
         selectPassenger8: () => cy.get(':nth-child(15) > div.select > select'),
         selectPassenger9: () => cy.get(':nth-child(16) > div.select > select'),
+    
+    datePickerContainer: () => cy.get('.react-datepicker__month-container'), 
+    
     }
 
 }
