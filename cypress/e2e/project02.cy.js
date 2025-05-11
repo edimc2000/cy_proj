@@ -9,15 +9,13 @@ describe('TG Login Form', () => {
         cy.visit('https://www.techglobal-training.com/frontend/login');
     })
 
-    it('[TC01] Validate the login form', () => {
+    it.only('[TC01] Validate the login form', () => {
         // steps 2 to 7    
-        cy.section('Validate labels and input boxes attr')
+
         elements.divLabels().each((el, index) => {
-            cy.step(`${testData.inputlabels[index]} clickability, attr, visibility, string value`)
             cy.wrap(el)
                 .should('be.visible')
                 .and('have.text', testData.inputlabels[index])
-
                 .next()
                 .should('be.visible')
                 .and('be.enabled')
@@ -25,8 +23,6 @@ describe('TG Login Form', () => {
         })
 
         // steps 8 to 10
-        cy.section('Validate Login button and forgot password link')
-        cy.step('Login button')
         elements.loginButton()
             .should('be.visible')
             .and('be.enabled')
@@ -38,7 +34,7 @@ describe('TG Login Form', () => {
             .and('have.prop', 'tagName', 'A') // a tag for clickable assertion
             .and('have.text', testData.forgotLabel)
             .click()
-        elements.modalTitle().should('be.visible') // secondary assertion, when it's clickable
+        elements.modalTitle().should('be.visible') // secondary assertion for the link, when it's clickable
     })
 
     it('[TC02] Validate the successful login', () => {
@@ -49,46 +45,34 @@ describe('TG Login Form', () => {
         //steps 5 -6 
         cy.step('Validation when logged in ')
         elements.successMessage().should('be.visible').and('have.text', testData.successMessage)
-        elements.logoutButton().should('be.visible').and('have.text', testData.logoutButtonlabel)
+        elements.logoutButton().should('be.visible').and('be.enabled').and('have.text', testData.logoutButtonlabel)
     })
 
 
-    it.only('[TC03] Validate logout', () => {
+    it('[TC03] Validate logout', () => {
         //steps 2-4
         cy.step('Login with a valid account')
         loginPage.login(testData.validUserName, testData.validPassword)
 
-        // 5. Click on the “LOGOUT” button
+        //step 5
         elements.logoutButton().click()
 
-        // 6. Validate that the login form is displayed
+        //step 6
         elements.userNameInputbox().should('be.visible')
         elements.passwordInputbox().should('be.visible')
     })
 
     it('[TC04] Validate the Forgot Password? Link and Reset Password modal', () => {
-        // 1. Navigate to https://techglobal-training.com/frontend/login
-        // used beforeEach()
-
-        // 2. Click on the “Forgot Password?” link
         elements.forgotPasswordLink().click()
 
-        // 3. Validate that the modal heading “Reset Password” is displayed
+        //steps 3-6 
         elements.modalTitle().should('be.visible').and('have.text', 'Reset Password')
-
-        // 4. Validate that the close button is displayed
         elements.modalCloseButton().should('be.visible').and('have.attr', 'class', 'delete')
-
-        // 5. Validate that the email input box is displayed
         elements.modalEmailInputbox().should('be.visible')
-
-        // 6. Validate that the label of the email input box is “Enter your email address and we'll send you a link to reset your password.”
         elements.modalEmailInputbox().parent()
-            .should('have.text', 'Enter your email address and we\'ll send you a link to reset your password. ')
+            .should('have.text', testData.paswordResetLabel)
 
-        // 7. Validate the “SUBMIT” button is displayed
-        // 8. Validate the “SUBMIT” button is clickable
-        // 9. Validate that the button text is “SUBMIT”
+        //steps 7-9
         elements.modalSubmitButton()
             .should('be.visible')
             .and('have.text', 'SUBMIT')
@@ -96,95 +80,60 @@ describe('TG Login Form', () => {
     })
 
     it('[TC05] Validate the Reset Password modal close button', () => {
-        // 1. Navigate to https://techglobal-training.com/frontend/login
-        //used beforeEach()
-
-        // 2. Click on the “Forgot Password?” link
         elements.forgotPasswordLink().click()
 
-        // 3. Validate that the “Reset Password” modal is displayed
-        elements.modalTitle().should('have.text', 'Reset Password')
-
-        // 4. Click on the close button
+        //steps 3-5
+        elements.modalTitle().should('have.text', testData.modelResetPasswordTitle)
         elements.modalCloseButton().should('be.visible').click()
-
-        // 5. Validate that the “Reset Password” modal is closed
         elements.modalCard().should('not.exist')
     })
 
     it('[TC06] Validate the Reset Password form submission', () => {
-        // 1. Navigate to https://techglobal-training.com/frontend/login
-        //used beforeEach()
-
-        // 2. Click on the “Forgot Password?” link
-        // 3. Enter an email
-        // 4. Click on the “SUBMIT” button
+        //steps 2-6
         loginPage.passwordReset(testData.emailAddress)
-
-        // 6. Validate the form message “A link to reset your password has been sent to your email address.” is displayed under the “SUBMIT” button
         elements.modalConfirmationMessage()
             .should('be.visible')
-            .and('have.text', 'A link to reset your password has been sent to your email address.')
+            .and('have.text', testData.paswordResetSumittedLabel)
     })
 
 
     it('[TC07] Validate the invalid login with the empty credentials', () => {
-        // 1. Navigate to https://techglobal-training.com/frontend/login
-        // used beforeEach
-
-        // 2. Leave username empty
-        // 3. Leave password empty
-        // 4. Click on the “LOGIN” button
+        //steps 2-4
         loginPage.loginEmpty()
 
-        // 5. Validate the failure message is displayed as “Invalid Username entered!” above the form
+        //step 5
         elements.errorMessage()
             .should('be.visible')
-            .and('have.text', 'Invalid Username entered!')
+            .and('have.text', testData.errorMessageUsername)
     })
 
     it('[TC08] Validate the invalid login with the wrong username', () => {
-        // 1. Navigate to https://techglobal-training.com/frontend/login
-        // used beforeEach
-
-        // 2. Enter the username as “John”
-        // 3. Enter the password as “Test1234”
-        // 4. Click on the “LOGIN” button
+        //steps 2-4
         loginPage.login(testData.invalidUserName, testData.validPassword)
 
-        // 5. Validate the failure message is displayed as “Invalid Username entered!” above the form
+        //step 5
         elements.errorMessage()
             .should('be.visible')
-            .and('have.text', 'Invalid Username entered!')
+            .and('have.text', testData.errorMessageUsername)
     })
 
-    it('[TC09] Validate the invalid login with the wrong password', () => {
-        // 1. Navigate to https://techglobal-training.com/frontend/login
-        //used beforeEach
-
-        // 2. Enter the username as “TechGlobal”
-        // 3. Enter the password as “1234”
-        // 4. Click on the “LOGIN” button
+    it.only('[TC09] Validate the invalid login with the wrong password', () => {
+        //steps 2-4
         loginPage.login(testData.validUserName, testData.invalidPassword)
 
-        // 5. Validate the failure message is displayed as “Invalid Password entered!” above the form
+        //step 5
         elements.errorMessage()
             .should('be.visible')
-            .and('have.text', 'Invalid Password entered!')
+            .and('have.text', testData.errorMessagePassword)
     })
 
     it('[TC10] Validate the invalid login with the wrong username and password', () => {
-        // 1. Navigate to https://techglobal-training.com/frontend/login
-        //used beforeEach
-
-        // 2. Enter the username as "John"
-        // 3. Enter the password as “1234”
-        // 4. Click on the “LOGIN” button
+        //steps 2-4
         loginPage.login(testData.invalidUserName, testData.invalidPassword)
 
-        // 5. Validate the failure message is displayed as “Invalid Username entered!” above the form
+        //step 5
         elements.errorMessage()
             .should('be.visible')
-            .and('have.text', 'Invalid Username entered!')
+            .and('have.text', testData.errorMessageUsername)
     })
 })

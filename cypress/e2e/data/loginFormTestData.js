@@ -9,11 +9,16 @@ const testData = {
     loginButtonlabel: 'LOGIN', 
     logoutButtonlabel: 'LOGOUT', 
     forgotLabel: 'Forgot Password?', 
-    successMessage: 'You are logged in'
+    successMessage: 'You are logged in',
+    errorMessageUsername: 'Invalid Username entered!',
+    errorMessagePassword: 'Invalid Password entered!',
+    paswordResetLabel: 'Enter your email address and we\'ll send you a link to reset your password. ',
+    paswordResetSumittedLabel: 'A link to reset your password has been sent to your email address.', 
+    modelResetPasswordTitle: 'Reset Password',
+
 }
 
 
 
 module.exports = { testData } 
-
 
