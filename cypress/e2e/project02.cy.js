@@ -2,7 +2,7 @@
 require('cypress-plugin-steps')
 const loginPage = require('../pages/loginFormPage.js')
 const { testData } = require('./data/loginFormTestData.js')
-const elements = loginPage.elements;
+const elements = loginPage.elements
 
 describe('TG Login Form', () => {
     beforeEach(() => {
@@ -11,7 +11,6 @@ describe('TG Login Form', () => {
 
     it.only('[TC01] Validate the login form', () => {
         // steps 2 to 7    
-
         elements.divLabels().each((el, index) => {
             cy.wrap(el)
                 .should('be.visible')
