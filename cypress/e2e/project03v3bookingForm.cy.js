@@ -32,23 +32,28 @@ describe('TG Booking Form', () => {
     })
 
     it('[TC05] Validate the booking for 2 passengers and one way', () => {
-        let departDate =  testData.testDates()
+        let departDate = testData.testDates()
         bookingMethods.bookTrip('One Way', 'Premium Economy', 'NY', 'TX', '2', departDate.tomorrow)
     })
 
     it.only('[TC05] Validate the booking for 2 passengers and one way', () => {
-        
+
         /// this is you date picker function
-        const dateTesting ='10/20/2025'   
-        const formattedDateTesting = utils.convertDateFormatv2(dateTesting)  
-               
+        const dateTesting = '10/20/2025'
+        const formattedDateTesting = utils.convertDateFormatv2(dateTesting)
+        const dateRTesting = '12/20/2025'
+        const formattedRDateTesting = utils.convertDateFormatv2(dateRTesting)
+
+        elements.inputDepart().clear().type(dateTesting.slice(0, 2))
         elements.inputDepart().click()
-        elements.datePickerContainer()
-        elements.inputDepart().clear().type(dateTesting.slice(0,2))
         cy.get(`[aria-label="Choose ${formattedDateTesting}"]`).click()
-        // cy.wait(2000)
-        // cy.get(`[aria-label="Choose ${formattedDateTesting}"]`).click()
-  
+
+        elements.radioRT().click()
+        elements.inputReturn().click()
+        
+        elements.inputReturn().clear().type(dateRTesting.slice(0,2))
+        cy.get(`[aria-label="Choose ${formattedRDateTesting}"]`).click()
+
     })
 
 
