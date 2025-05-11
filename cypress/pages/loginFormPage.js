@@ -18,7 +18,6 @@ class LoginPage {
         modalConfirmationMessage: () => cy.get('#confirmation_message'),
 
         divLabels : () => cy.get('div label'),
-
     }
 
     login(username, password){

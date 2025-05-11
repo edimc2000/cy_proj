@@ -15,7 +15,6 @@ const testData = {
     paswordResetLabel: 'Enter your email address and we\'ll send you a link to reset your password. ',
     paswordResetSumittedLabel: 'A link to reset your password has been sent to your email address.', 
     modelResetPasswordTitle: 'Reset Password',
-
 }
 
 module.exports = { testData } 
