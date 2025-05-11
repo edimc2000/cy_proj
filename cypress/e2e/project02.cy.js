@@ -9,7 +9,7 @@ describe('TG Login Form', () => {
         cy.visit('https://www.techglobal-training.com/frontend/login')
     })
 
-    it.only('[TC01] Validate the login form', () => {
+    it('[TC01] Validate the login form', () => {
         // steps 2 to 7   labels and input boxes 
         elements.divLabels().each((el, index) => {
             cy.wrap(el)
@@ -116,7 +116,7 @@ describe('TG Login Form', () => {
             .and('have.text', testData.errorMessageUsername)
     })
 
-    it.only('[TC09] Validate the invalid login with the wrong password', () => {
+    it('[TC09] Validate the invalid login with the wrong password', () => {
         //steps 2-4
         loginPage.login(testData.validUserName, testData.invalidPassword)
 
