@@ -36,30 +36,4 @@ describe('TG Booking Form', () => {
         let departDate = testData.testDates()
         bookingMethods.bookTrip('One Way', 'Premium Economy', 'NY', 'TX', '2', departDate.tomorrow)
     })
-
-    it('[XXXXX-1] Validate the booking for 2 passengers and one way', () => {
-
-        bookingMethods.tripDatePicker('10/20/2025', elements.inputDepartElement)
-
-
-    })
-
-    it('[XXXXX-2] Validate the booking for 2 passengers and one way', () => {
-        elements.radioRT().click()
-
-        cy.section ('FIRST DP')
-
-        bookingMethods.tripDatePicker('10/20/2025', elements.inputDepartElement)
-        
-
-        cy.section ('SECOND DP')
-        bookingMethods.tripDatePicker('12/25/2025', elements.inputReturnElement)
-
-    })
-
-
-
-
-
-
 })

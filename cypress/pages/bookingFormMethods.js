@@ -118,13 +118,6 @@ class BookingMethods {
             this.inputTripDetails(cabinClass, fromValue, toValue, departDate)
         }
 
-        // elements.selectCabinClass().select(cabinClass)
-        // elements.selectFrom().select(fromValue)
-        // elements.selectTo().select(toValue)
-        // this.tripDatePicker(departDate, elements.inputDepartElement)
-        // this.tripDatePicker(returnDate, elements.inputReturnElement)
-
-
         if (numPassengers > 1) {
             elements.selectNumPassengers().select(numPassengers)
             for (let i = 2; i <= numPassengers; i++) {
