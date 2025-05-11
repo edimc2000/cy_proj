@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx cypress run",
+    "test:02": "npx cypress run --spec 'cypress/e2e/project02.cy.js'"
   },
   "author": "Eddie C.",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "cypress": "^14.3.2",
-    "cypress-real-events": "^1.14.0"
+    "cypress-real-events": "^1.14.0",
+    "dotenv": "^16.5.0"
   },
   "dependencies": {
     "cypress-plugin-steps": "^1.2.0"

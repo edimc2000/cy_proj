@@ -1,6 +1,21 @@
 class TestData {
     mainLabelException = 'Trip type'
 
+    months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ];
+
     inputTypes = {
         attrRadio: ['radio', '[input="radio"]'],
         attrText: ['text', '[type="text"]'],
@@ -226,7 +241,7 @@ class TestData {
         const tripDate = {
             dDate: `${month}/${day}/${year}`,
             rDate: `${fourWeeks}/${day}/${year}`,
-            tomorrow: `${month}/${Number(day)+1}/${year}`
+            tomorrow: `${month}/${Number(day) + 1}/${year}`
         }
 
         return tripDate

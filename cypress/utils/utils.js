@@ -2,15 +2,18 @@ class Utils {
 
     getOrdinalSuffix = day => {
         if (day >= 11 && day <= 13) {
-            return 'th';
+            return 'th'
         }
         switch (day % 10) {
-            case 1: return 'st';
-            case 2: return 'nd';
-            case 3: return 'rd';
-            default: return 'th';
+            case 1: return 'st'
+            case 2: return 'nd'
+            case 3: return 'rd'
+            default: return 'th'
         }
     }
+
+    monthNow = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date())
+    
     /**
      * @param {String} dateStr  format 'MM/DD/YYYY'
      * @returns Date string with this format 'Fri May 09 2025'
@@ -18,10 +21,10 @@ class Utils {
     convertDateFormat = dateStr => {
         //  input 05/09/2025   - result Fri May 09 2025
         const [month, day, year] = dateStr.split('/').map(Number);
-        const date = new Date(year, month - 1, day);
+        const date = new Date(year, month - 1, day)
 
         if (isNaN(date.getTime())) {
-            throw new Error('Invalid date');
+            throw new Error('Invalid date')
         }
 
         return date.toLocaleDateString('en-US', {
@@ -29,14 +32,14 @@ class Utils {
             month: 'short',
             day: '2-digit',
             year: 'numeric'
-        }).replace(/,/g, '');
+        }).replace(/,/g, '')
     }
 
 
 
     /**
      * @param {String} dateStr  format 'MM/DD/YYYY'
-     * @returns Date string with this format 'Tuesday, May 9th, 2025'
+     * @returns Date string with this format 'Saturday, December 20th, 2025'
      */
     convertDateFormatv2 = dateStr => {
         //  input 05/09/2025   - result Tuesday, May 9th, 2025
@@ -55,10 +58,12 @@ class Utils {
         });
 
         // Replace the day number with the day + suffix
-        return formattedDate.replace(/\d+/, dayWithSuffix);
+        return formattedDate.replace(/\d+/, dayWithSuffix)
 
     }
 
+
+    
 }
 
 

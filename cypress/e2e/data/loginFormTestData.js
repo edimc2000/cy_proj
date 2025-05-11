@@ -1,6 +1,6 @@
 const testData = {
-    validUserName: 'TechGlobal',
-    validPassword: 'Test1234',
+    validUserName: Cypress.env('UI_USERNAME'),
+    validPassword: Cypress.env('UI_PASSWORD'),
     invalidUserName: 'John',
     invalidPassword: '1234',
     emailAddress: 'noemail@example.com',

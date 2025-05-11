@@ -39,20 +39,39 @@ describe('TG Booking Form', () => {
     it.only('[TC05] Validate the booking for 2 passengers and one way', () => {
 
         /// this is you date picker function
+
+        const currentMonth = utils.monthNow
         const dateTesting = '10/20/2025'
         const formattedDateTesting = utils.convertDateFormatv2(dateTesting)
         const dateRTesting = '12/20/2025'
         const formattedRDateTesting = utils.convertDateFormatv2(dateRTesting)
 
-        elements.inputDepart().clear().type(dateTesting.slice(0, 2))
+        // elements.inputDepart().clear().type(dateTesting.slice(0, 2))
         elements.inputDepart().click()
-        cy.get(`[aria-label="Choose ${formattedDateTesting}"]`).click()
+        // cy.get(`[aria-label="Choose ${formattedDateTesting}"]`).click()
 
-        elements.radioRT().click()
-        elements.inputReturn().click()
+        // elements.radioRT().click()
+        // elements.inputReturn().click()
+
+        // elements.inputReturn().clear().type(dateRTesting.slice(0, 2))
+        // cy.get(`[aria-label="Choose ${formattedRDateTesting}"]`).click()
+
         
-        elements.inputReturn().clear().type(dateRTesting.slice(0,2))
-        cy.get(`[aria-label="Choose ${formattedRDateTesting}"]`).click()
+        // cy.get('[aria-label="Next Month"]').click()
+        // cy.get('[aria-label="Next Month"]').click()
+        const numOfClicks = Number(dateTesting.slice(0, 2)) - testData.months.indexOf(currentMonth) - 1
+        for (let index = 0; index < numOfClicks; index++) {
+            cy.get('[aria-label="Next Month"]').click()
+            
+        }
+
+
+        cy.log(formattedRDateTesting)
+        cy.log(currentMonth)
+        cy.log(testData.months.indexOf(currentMonth))
+        cy.log(dateTesting)
+        cy.log(Number(dateTesting.slice(0, 2)))
+        cy.log(Number(dateTesting.slice(0, 2)) - testData.months.indexOf(currentMonth) - 1)
 
     })
 
