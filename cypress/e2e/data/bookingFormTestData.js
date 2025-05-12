@@ -1,21 +1,6 @@
 class TestData {
     mainLabelException = 'Trip type'
 
-    months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ];
-
     inputTypes = {
         attrRadio: ['radio', '[input="radio"]'],
         attrText: ['text', '[type="text"]'],

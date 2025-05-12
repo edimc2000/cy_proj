@@ -1,5 +1,5 @@
 class TestData {
-    mainLabelException = 'Trip type'
+    formatter = new Intl.NumberFormat('en-US')
 
     tableHeaders = ['Quantity', 'Product', 'Price $', 'Total $']
     tableName = 'Inventory'
@@ -7,10 +7,11 @@ class TestData {
     buttonSubmitLabel = 'SUBMIT'
 
     totalAmountDefault = 'Total = $2,300'
+    totalAmountAddedProduct = 'Total = $2,500'
 
     modalTitle = 'Add New Product'
-    modalInputLabel= ['Please select the quantity','Please enter the name of the product','Please enter the price of the product']
-    
+    modalInputLabel = ['Please select the quantity', 'Please enter the name of the product', 'Please enter the price of the product']
+
     defaultContent = [
         {
             Quantity: 1,
@@ -37,9 +38,9 @@ class TestData {
             Quantity: 2,
             Product: 'Mouse',
             'Price $': '100',
-            'Total $': '200'
+            'Total $': '400'
         },
-      ]
+    ]
 
 }
 

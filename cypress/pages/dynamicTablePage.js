@@ -6,6 +6,8 @@ class DynamicTable {
         tableBody: () => cy.get('#product_table tbody tr'),
         buttonAddProduct: () => cy.get('#add_product_btn'),
         totalAmount: () => cy.get('#total_amount'),
+        tableLastRowCells: () => cy.get('#product_table tbody tr:last-child td'),
+        tableLastColumnCells: () => cy.get('td:last-child'),
 
         modalPopUp: () => cy.get('header.modal-card-head'),
         modalTitle: () => cy.get('#modal_title'),
@@ -18,6 +20,7 @@ class DynamicTable {
         modalInputProduct: () => cy.get('#product'),
         modalInputPrice: () => cy.get('#price'),
         modalSubmitButton: () => cy.get('#submit'),
+
     }
 
     addProduct(quantity, product, price) {
