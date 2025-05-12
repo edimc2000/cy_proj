@@ -1,6 +1,4 @@
 class TestData {
-    formatter = new Intl.NumberFormat('en-US')
-
     tableHeaders = ['Quantity', 'Product', 'Price $', 'Total $']
     tableName = 'Inventory'
     buttonAddProductLabel = 'ADD PRODUCT'

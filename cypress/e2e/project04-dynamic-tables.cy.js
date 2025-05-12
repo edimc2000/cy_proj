@@ -1,21 +1,19 @@
-
 /// <reference types = "cypress" />
 require('cypress-plugin-steps')
 const dynamicTable = require('../pages/dynamicTablePage')
 const testData = require('./data/dynamicTableTestData')
 const elements = dynamicTable.elements
-const formatter = new Intl.NumberFormat('en-US');
+const formatter = new Intl.NumberFormat('en-US')
 
 
 describe('TG Booking Form', () => {
 
     beforeEach(() => {
-        cy.visit('https://www.techglobal-training.com/frontend/dynamic-tables');
+        cy.visit('https://www.techglobal-training.com/frontend/dynamic-tables')
 
     })
 
     it('[TC01] Validate the default content of the inventory table', () => {
-
         cy.section('Name and Headers')
         cy.step('Table Name')
         elements.heading().should('have.text', testData.tableName).and('be.visible')
@@ -47,13 +45,11 @@ describe('TG Booking Form', () => {
         elements.totalAmount()
             .should('be.visible')
             .and('have.text', testData.totalAmountDefault)
-
-
     })
 
     it('[TC02] Validate the Add New Product modal', () => {
-
         elements.buttonAddProduct().click()
+
         cy.step('Validate modal title')
         elements.modalTitle()
             .should('be.visible')
@@ -87,7 +83,7 @@ describe('TG Booking Form', () => {
 
     it('[TC03] Validate the Add New Product modal X button', () => {
         elements.buttonAddProduct().click()
-        cy.step('Validate modal title')
+        cy.section('Validate Content of Modal')
         elements.modalTitle()
             .should('be.visible')
             .and('have.text', testData.modalTitle)
@@ -95,26 +91,38 @@ describe('TG Booking Form', () => {
         elements.modalCloseButton().click()
         elements.modalTitle().should('not.exist')
     })
-    it.only('[TC04] Validate the new product added', () => {
+    it('[TC04] Validate the new product added', () => {
         let totalAmount = 0
         elements.buttonAddProduct().click()
+
+        cy.step(`Input test values`)
         dynamicTable.addProduct(testData.addTestProduct[0]['Quantity'], testData.addTestProduct[0]['Product'], testData.addTestProduct[0]['Price $'])
         elements.modalSubmitButton().click()
+
+        cy.step(`Validating Last Row - values and visibility `)
+        elements.tableLastRowCells().each((lastRow, index) => {
+            cy.wrap(lastRow).each((content) => {
+                let productQuery
+                index < 3 ? productQuery = testData.addTestProduct[0][testData.tableHeaders[index]]
+                    : productQuery = (testData.addTestProduct[0][testData.tableHeaders[index - 3]]
+                        * (Number(testData.addTestProduct[0][testData.tableHeaders[index - 1]].replace(/,/g, '')))).toLocaleString('en-US')
+                cy.wrap(content).should('have.text', productQuery).and('be.visible')
+            })
+        })
+
+        cy.step(`Validating Total - value and visibility `)
         elements.tableLastColumnCells().then((el) => {
             const numEl = el.length
             elements.tableLastColumnCells().each((content, index) => {
                 totalAmount += Number(content.text().replace(/,/g, ''))
-                if (index === numEl - 1){return cy.wrap(`Total = $${totalAmount.toLocaleString('en-US')}`).as('storedValues')}
+                if (index === numEl - 1) { return cy.wrap(`Total = $${totalAmount.toLocaleString('en-US')}`).as('storedValues') }
             })
         })
         cy.get('@storedValues').then((value) => {
-            console.log('Stored value:', value)
             elements.totalAmount()
                 .should('be.visible')
                 .and('have.text', value)
-        });
-
+        })
     })
-
 
 })

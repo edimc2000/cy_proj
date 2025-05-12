@@ -1,4 +1,3 @@
-
 class DynamicTable {
     elements = {
         heading: () => cy.get('h1.is-size-3'),
