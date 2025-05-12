@@ -6,7 +6,8 @@
     "test": "npx cypress run",
     "test:02": "npx cypress run --spec 'cypress/e2e/project02.cy.js'",
     "test:03": "npx cypress run --spec 'cypress/e2e/project03.cy.js'",
-    "test:04": "npx cypress run --spec 'cypress/e2e/project04-dynamic-tables.cy.js'"
+    "test:04": "npx cypress run --spec 'cypress/e2e/project04-dynamic-tables.cy.js'",
+    "test:05": "npx cypress run --spec 'cypress/e2e/project05-pagination.cy.js'"
   },
   "author": "Eddie C.",
   "license": "ISC",
