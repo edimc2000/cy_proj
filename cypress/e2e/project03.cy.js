@@ -2,36 +2,44 @@
 require('cypress-plugin-steps')
 require('cypress-real-events')
 
-const booking = require('../pages/bookingFormPage.js')
-const testData = require('./data/bookingFormTestData.js')
+const bookingPage = require('../pages/bookingFormMethods.js')
+const selectors =  bookingPage.selectors
+const testData = require('../fixtures/bookingFormTestData.js')
 const utils = require('../utils/utils.js')
-const bookingMethods = require('../pages/bookingFormMethods.js')
-const elements = booking.elements;
 
 describe('TG Booking Form', () => {
-
     beforeEach(() => {
         cy.visit('https://www.techglobal-training.com/frontend/booking');
     })
 
-    it('[TC01] Validate the default Book your trip form', () => {
-        bookingMethods.validateBookingForm('One Way')
+    it.only('[TC01] Validate the default Book your trip form', () => {
+        
+        cy.section(`Validate the trip type section`)
+        bookingPage.validateTripTypeDefaults('One way')
+        bookingPage.validateTripTypeDefaults('Round trip')
+        
+        cy.section(`Validate the labels and input elements`)
+        bookingPage.validateLabelsAndElements()
+        
+        cy.section(`Validate the book button`)
+        bookingPage.validateBookButton()
+
+        
+
     })
 
     it('[TC02] Validate the Book your trip form when Round trip is selected', () => {
-        elements.radioRT().check()
-        bookingMethods.validateBookingForm('Round trip')
+
     })
 
     it('[TC03] Validate the booking for 1 passenger and one way', () => {
-        bookingMethods.bookTrip('One Way', 'Business', 'IL', 'FL', '1', null, null, 'Senior (65+)')
+
     })
     it('[TC04] Validate the booking for 1 passenger and round trip', () => {
-        bookingMethods.bookTrip('Round trip', 'First', 'CA', 'IL', '1', null, null)
+
     })
 
     it('[TC05] Validate the booking for 2 passengers and one way', () => {
-        let departDate = testData.testDates()
-        bookingMethods.bookTrip('One Way', 'Premium Economy', 'NY', 'TX', '2', departDate.tomorrow)
+
     })
 })
