@@ -4,8 +4,11 @@ const loginPage = require('../pages/loginFormPage.js')
 const elements = loginPage.elements
 
 describe('TG Login Form', function () {
-    beforeEach(function () {
+    before(function () {
         loginPage.loadTestData()
+    })
+
+    beforeEach(function () {
         cy.visit('https://www.techglobal-training.com/frontend/login')
     })
 
