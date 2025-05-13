@@ -24,7 +24,9 @@ class BookingPage {
 
         getSelectNumPassengers: () => cy.get(':nth-child(7) > div.select > select'),
 
-        getDivSummary: () => cy.get('div .ml-3 > div'),
+        getDivDepartSummary: () => cy.get('div .ml-3 > div > div:first-child'),
+        getDivReturnSummary: () => cy.get('div .ml-3 > div > div:last-child'),
+        getDivPassengerSummary: () => cy.get('div .ml-3 > div:last-child'),
         getSelectPassenger1: () => cy.get(':nth-child(8) > div.select > select'),
         getSelectPassenger2: () => cy.get(':nth-child(9) > div.select > select'),
         getSelectPassenger3: () => cy.get(':nth-child(10) > div.select > select'),
