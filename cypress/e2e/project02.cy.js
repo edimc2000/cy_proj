@@ -6,10 +6,7 @@ const elements = loginPage.elements
 describe('TG Login Form', function () {
     beforeEach(function () {
         loginPage.loadTestData()
-
         cy.visit('https://www.techglobal-training.com/frontend/login')
-
-
     })
 
     it('[TC01] Validate the login form', function () {

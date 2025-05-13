@@ -1,4 +1,7 @@
 class LoginPage {
+
+    /* Locators */
+    
     elements = {
         getUserNameInputbox: () => cy.get('#username'),
         getPasswordInputbox: () => cy.get('#password'),
@@ -20,6 +23,7 @@ class LoginPage {
         getDivLabels: () => cy.get('div label'),
     }
 
+    /* Methods */
 
     clickLogin() {
         this.elements.getLoginButton().click()
@@ -64,9 +68,7 @@ class LoginPage {
             this.modalResetPasswordTitle = data['modalResetPasswordTitle']
             this.validUserName = Cypress.env('UI_USERNAME')
             this.validPassword = Cypress.env('UI_PASSWORD')
-
         })
-
     }
 
 }
