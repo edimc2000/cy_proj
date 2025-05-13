@@ -5,6 +5,75 @@ const utils = require('../utils/utils.js');
 
 class Booking extends BookingPage {
 
+    bookTrip(tripType, cabinClass, leavingFrom, goingTo, dateDepart, dateReturn) {
+        this.clickRadio(tripType)
+        this.inputTripDetails(tripType, cabinClass, leavingFrom, goingTo, dateDepart, dateReturn)
+        this.clickBook()
+    }
+
+    inputTripDetails(tripType, cabinClass, leavingFrom, goingTo, dateDepart, dateReturn) {
+        this.selectors.getSelectCabinClass().select(cabinClass)
+        this.selectors.getSelectFrom().select(leavingFrom)
+        this.selectors.getSelectTo().select(goingTo)
+
+        cy.log(dateDepart)
+        this.tripDatePicker(dateDepart, this.selectors.getInputDepartField)
+        if (tripType === 'Round trip') this.tripDatePicker(dateReturn, this.selectors.getInputReturnField)
+    }
+
+    inputPassengerDetails = (numPassengers, passenger1Input) => {
+        this.selectors.getSelectPassenger1().select(passenger1Input)
+
+        if (numPassengers > 1) {
+            this.selectors.getSelectNumPassengers().select(numPassengers)
+            for (let i = 2; i <= numPassengers; i++) {
+                this.selectors['getSelectPassenger' + [i]]().select(testData.divs['Passenger ' + [i]].defaultValue)
+            }
+        } else {
+            this.selectors.getSelectNumPassengers().select(numPassengers)
+        }
+    }
+
+    /**
+     * clicks the corresponding radio button for the trip type section  
+     * @param {string} tripType 'One way' for one way trip  and 'Round trip' for roundtrip 
+     */
+    clickRadio(tripType) {
+        cy.step(`Click radio button: ${tripType}`)
+        tripType === 'One way'
+            ? this.selectors.getRadioOneWay().click()
+            : this.selectors.getRadioRountrip().click()
+        this.validateTripType(tripType)
+    }
+
+    /**
+    * clicks the book button  
+    */
+    clickBook() {
+        this.selectors.getButtonBook().click()
+    }
+
+    validateSummary(tripType, leavingFrom, goingTo, dateDepart, dateReturn) {
+        let departInfo = ['DEPART', `${leavingFrom} to ${goingTo}`, utils.convertDateFormat(dateDepart)]
+        this.selectors.getDivDepartSummary().children().each(function (info, index) {
+            cy.log(info.text())
+            cy.wrap(info).should('have.text', departInfo[index])
+        })
+
+        if (tripType === 'Round trip') {
+            let returnInfo = ['RETURN', `${goingTo} to ${leavingFrom}`, utils.convertDateFormat(dateReturn)]
+            this.selectors.getDivReturnSummary().children().children().each( function(info, index){
+            cy.log(info.text())
+            cy.wrap(info).should('have.text', returnInfo[index])
+
+            })
+        }
+        this.selectors.getDivPassengerSummary()
+
+    }
+
+
+
     validateTripTypeDefaults(tripType) {
         let assertRadio
         tripType === 'One way' ? assertRadio = () => this.selectors.getRadioOneWay() : assertRadio = () => this.selectors.getRadioRountrip()
@@ -17,7 +86,26 @@ class Booking extends BookingPage {
             .and('be.visible')
     }
 
-    validateLabelsAndElements() {
+    validateTripType(tripType) {
+        let assertRadio1
+        let assertRadio2
+
+        tripType === 'One way'
+            ? (assertRadio1 = () => this.selectors.getRadioOneWay(), assertRadio2 = () => this.selectors.getRadioRountrip())
+            : (assertRadio2 = () => this.selectors.getRadioOneWay(), assertRadio1 = () => this.selectors.getRadioRountrip())
+
+        assertRadio1().should('be.checked')
+        assertRadio2().should('not.be.checked')
+
+    }
+
+    /** Validates the form based on supplied args 
+    * @param {string} tripType 'One way' for one way trip  and 'Round trip' for roundtrip. 
+    * If no argument is supplied, it defaults to 'One way'
+    */
+    validateLabelsAndElements(tripType) {
+        tripType = tripType ?? 'One way'
+
         this.selectors.getDivLabelsExceptTripType().each(function (data) {
             cy.wrap(data) //labels
                 .children().eq(0)
@@ -29,9 +117,10 @@ class Booking extends BookingPage {
                         .parent()
                         .children().eq(1) //inputs 
                         .then(function (input) {
-                            cy.step(`Validate defaults for input element - ${label.text()}`)
+                            let inputReturnAssertionEnabled = testData.divs[label.text()].assertInputElement.assertEnabled
+                            label.text() === 'Return' && tripType === 'Round trip' ? inputReturnAssertionEnabled = 'be.enabled' : null
                             cy.wrap(input).find(testData.divs[label.text()].inputType)
-                                .should(testData.divs[label.text()].assertInputElement.assertEnabled)
+                                .should(inputReturnAssertionEnabled)
                                 .and(testData.divs[label.text()].assertInputElement.assertVisibility)
                         })
                 })
@@ -46,56 +135,61 @@ class Booking extends BookingPage {
             .and(testData.buttons.book.defaultAssertionEnabled)
     }
 
+    /**
+     * Date picker using clicks instead of using the input boxes 
+     * @param {string} strDate format 'mm/dd/yyy'
+     * @param {*} datePickerElement  css selector example: ':nth-child(5) > div input'
+     */
+    tripDatePicker = (strDate, datePickerElement) => {
+        let monthValueOnField
+        let numOfClicks
+
+        cy.get(datePickerElement).then(dateValue => {
+            monthValueOnField = dateValue.val()
+            numOfClicks = Number(strDate.slice(0, 2)) - Number(monthValueOnField.slice(0, 2))
+            cy.get(datePickerElement).click()
+            this.selectors.getDatePickerButtonNext().realClick({ clickCount: numOfClicks })
+            cy.get(`[aria-label="Choose ${utils.convertDateFormatv2(strDate)}"]`).realClick()
+        })
+    }
+
+    /**
+     * @returns 3 dates, date tomorrow, date next month +7days  and date next week
+     * example format 
+     * .dateNextWeek: '05/20/2025' one week from now 
+     * .dateNextFiveWeeks: '06/20/2025' 
+     * .dateTomorrow: '05/14/2025'
+     */
+    testDates = () => {
+        const nextWeek = new Date()
+        nextWeek.setDate(nextWeek.getDate() + 7)
+
+        const nextMonth = new Date()
+        nextMonth.setDate(nextMonth.getDate() + 30)
+
+        const nextDay = new Date()
+        nextDay.setDate(nextDay.getDate() + 1)
+        const fourWeeks = (nextMonth.getMonth() + 1).toString().padStart(2, '0')
+
+        const month = (nextWeek.getMonth() + 1).toString().padStart(2, '0')
+        const day = nextWeek.getDate().toString().padStart(2, '0')
+        const dateTomorrow = nextDay.getDate().toString().padStart(2, '0')
+        const year = nextWeek.getFullYear().toString()//.slice(-2)
+
+        const tripDate = {
+            dateNextWeek: `${month}/${day}/${year}`,
+            dateNextFiveWeeks: `${fourWeeks}/${day}/${year}`,
+            dateTomorrow: `${month}/${dateTomorrow}/${year}`
+        }
+        return tripDate
+    }
 
 
 
 
-
-    // inputTripType = (tripType, cabinClass, fromValue, toValue, departDate, returnDate) => {
-    //     if (tripType === 'Round trip') {
-    //         elements.getRadioRT().check()
-    //         this.inputTripDetails(cabinClass, fromValue, toValue, departDate)
-    //         this.tripDatePicker(returnDate, elements.getInputReturnField)
-
-    //     } else {
-    //         elements.getRadioOW().check()
-    //         this.inputTripDetails(cabinClass, fromValue, toValue, departDate)
-    //     }
-    // }
-
-    // inputPassengerDetails = (numPassengers, passenger1Input) => {
-    //     elements.getSelectPassenger1().select(passenger1Input)
-
-    //     if (numPassengers > 1) {
-    //         elements.getSelectNumPassengers().select(numPassengers)
-    //         for (let i = 2; i <= numPassengers; i++) {
-    //             elements['selectPassenger' + [i]]().select(testData.divs['Passenger ' + [i]].defaultValue)
-    //         }
-    //     } else {
-    //         elements.getSelectNumPassengers().select(numPassengers)
-    //     }
-    // }
-
-    // inputTripDetails = (cabinClass, fromValue, toValue, departDate) => {
-    //     elements.getSelectCabinClass().select(cabinClass)
-    //     elements.getSelectFrom().select(fromValue)
-    //     elements.getSelectTo().select(toValue)
-    //     this.tripDatePicker(departDate, elements.getInputDepartField)
-    // }
-
-    // tripDatePicker = (strDate, datePickerElement) => {
-    //     let monthValueOnField
-    //     let numOfClicks
-
-    //     cy.get(datePickerElement).then(dateValue => {
-    //         monthValueOnField = dateValue.val()
-    //         numOfClicks = Number(strDate.slice(0, 2)) - Number(monthValueOnField.slice(0, 2))
-    //         cy.get(datePickerElement).click()
-    //         elements.getDatePickerButtonNext().realClick({ clickCount: numOfClicks })
-    //         cy.get(`[aria-label="Choose ${utils.convertDateFormatv2(strDate)}"]`).realClick()
-    //     })
-    // }
 }
+
+
 
 module.exports = new Booking()
 
