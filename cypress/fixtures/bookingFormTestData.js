@@ -1,33 +1,40 @@
 class TestData {
     mainLabelException = 'Trip type'
 
+    buttons = {
+        book: {
+            labelName: 'BOOK',
+            defaultAssertionEnabled: 'be.enabled',
+            defaultAssertionVisibility: 'be.visible',
+        }
+    }
+
     inputTypes = {
-        attrRadio: ['radio', '[input="radio"]'],
-        attrText: ['text', '[type="text"]'],
-        tagSelect: ['select', 'select'],
+        attrRadio: 'radio',
+        attrText: 'input',
+        tagSelect: 'select',
     }
 
     radioButtons = {
         'One way': {
             inputType: this.inputTypes['attrRadio'][0],
             labelName: 'One way',
-            assertChecked: 'be.checked',
-            assertEnabled: 'be.enabled',
-            assertVisibility: 'be.visible',
+            defaultAssertionChecked: 'be.checked',
+            defaultAssertionEnabled: 'be.enabled',
+            defaultAssertionVisibility: 'be.visible',
         },
 
         'Round trip': {
             inputType: this.inputTypes['attrRadio'][0],
             labelName: 'Round trip',
-            assertChecked: 'not.be.checked',
-            assertEnabled: 'be.enabled',
-            assertVisibility: 'be.visible',
+            defaultAssertionChecked: 'not.be.checked',
+            defaultAssertionEnabled: 'be.enabled',
+            defaultAssertionVisibility: 'be.visible',
         },
     }
 
     radioButtonsRT = {
         'One way': {
-            inputType: this.inputTypes['attrRadio'][0],
             labelName: 'One way',
             assertChecked: 'not.be.checked',
             assertEnabled: 'be.enabled',
@@ -35,7 +42,6 @@ class TestData {
         },
 
         'Round trip': {
-            inputType: this.inputTypes['attrRadio'][0],
             labelName: 'Round trip',
             assertChecked: 'be.checked',
             assertEnabled: 'be.enabled',
@@ -45,7 +51,7 @@ class TestData {
 
     divs = {
         'Trip type': {
-            inputType: this.inputTypes['attrRadio'][0],
+            inputType: this.inputTypes.attrRadio,
             labelName: 'Trip type',
             defaultValue: '',
             assertInputElement: {
@@ -65,7 +71,7 @@ class TestData {
         },
 
         From: {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'From',
             defaultValue: 'Select state...',
             assertInputElement: {
@@ -75,7 +81,7 @@ class TestData {
         },
 
         To: {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'To',
             defaultValue: 'Select state...',
             assertInputElement: {
@@ -85,7 +91,7 @@ class TestData {
         },
 
         Depart: {
-            inputType: this.inputTypes['attrText'],
+            inputType: this.inputTypes.attrText,
             labelName: 'Depart',
             defaultValue: '',
             assertInputElement: {
@@ -95,7 +101,7 @@ class TestData {
         },
 
         Return: {
-            inputType: this.inputTypes['attrText'],
+            inputType: this.inputTypes.attrText,
             labelName: 'Return',
             defaultValue: '',
             assertInputElement: {
@@ -107,7 +113,7 @@ class TestData {
         },
 
         'Number of passengers': {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'Number of passengers',
             defaultValue: '1',
             assertInputElement: {
@@ -117,7 +123,7 @@ class TestData {
         },
 
         'Passenger 1': {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
             assertInputElement: {
@@ -127,7 +133,7 @@ class TestData {
         },
 
         'Passenger 2': {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'Passenger 1',
             defaultValue: 'Child (2-11)',
             assertInputElement: {
@@ -137,7 +143,7 @@ class TestData {
         },
 
         'Passenger 3': {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
             assertInputElement: {
@@ -147,7 +153,7 @@ class TestData {
         },
 
         'Passenger 4': {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
             assertInputElement: {
@@ -157,7 +163,7 @@ class TestData {
         },
 
         'Passenger 5': {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
             assertInputElement: {
@@ -167,7 +173,7 @@ class TestData {
         },
 
         'Passenger 6': {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
             assertInputElement: {
@@ -177,7 +183,7 @@ class TestData {
         },
 
         'Passenger 7': {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
             assertInputElement: {
@@ -187,7 +193,7 @@ class TestData {
         },
 
         'Passenger 8': {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
             assertInputElement: {
@@ -197,7 +203,7 @@ class TestData {
         },
 
         'Passenger 9': {
-            inputType: this.inputTypes['tagSelect'],
+            inputType: this.inputTypes.tagSelect,
             labelName: 'Passenger 1',
             defaultValue: 'Adult (16-64)',
             assertInputElement: {
