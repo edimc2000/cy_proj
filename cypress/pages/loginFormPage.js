@@ -1,41 +1,41 @@
 class LoginPage {
     elements = {
-        userNameInputbox: () => cy.get('#username'),
-        passwordInputbox: () => cy.get('#password'),
+        getUserNameInputbox: () => cy.get('#username'),
+        getPasswordInputbox: () => cy.get('#password'),
 
-        loginButton: () => cy.get('#login_btn'),
-        logoutButton: () => cy.get('#logout'),
+        getLoginButton: () => cy.get('#login_btn'),
+        getLogoutButton: () => cy.get('#logout'),
 
-        forgotPasswordLink: () => cy.get('a[href="/frontend/login"]'),
+        getForgotPasswordLink: () => cy.get('a[href="/frontend/login"]'),
         successMessage: () => cy.get('#success_lgn'),
         errorMessage: () => cy.get('#error_message'),
 
-        modalCard: () => cy.get('.modal .modal-card'),
-        modalTitle: () => cy.get('#modal_title'),
-        modalCloseButton: () => cy.get('[aria-label="close"]'),
-        modalEmailInputbox: () => cy.get('#email'),
-        modalSubmitButton: () => cy.get('#submit'),
-        modalConfirmationMessage: () => cy.get('#confirmation_message'),
+        getModalCard: () => cy.get('.modal .modal-card'),
+        getModalTitle: () => cy.get('#modal_title'),
+        getModalCloseButton: () => cy.get('[aria-label="close"]'),
+        getModalEmailInputbox: () => cy.get('#email'),
+        getModalSubmitButton: () => cy.get('#submit'),
+        getModalConfirmationMessage: () => cy.get('#confirmation_message'),
 
-        divLabels : () => cy.get('div label'),
+        getDivLabels : () => cy.get('div label'),
     }
 
     login(username, password){
-        this.elements.userNameInputbox().type(username).should('have.value', username)
-        this.elements.passwordInputbox().type(password).should('have.value', password)
-        this.elements.loginButton().click()
+        this.elements.getUserNameInputbox().type(username).should('have.value', username)
+        this.elements.getPasswordInputbox().type(password).should('have.value', password)
+        this.elements.getLoginButton().click()
     }
 
     loginEmpty() {
-        this.elements.userNameInputbox().clear()
-        this.elements.passwordInputbox().clear()
-        this.elements.loginButton().click()
+        this.elements.getUserNameInputbox().clear()
+        this.elements.getPasswordInputbox().clear()
+        this.elements.getLoginButton().click()
     }
     
     passwordReset(email) {
-        this.elements.forgotPasswordLink().click()
-        this.elements.modalEmailInputbox().type(email).should('have.value', email)
-        this.elements.modalSubmitButton().click()
+        this.elements.getForgotPasswordLink().click()
+        this.elements.getModalEmailInputbox().type(email).should('have.value', email)
+        this.elements.getModalSubmitButton().click()
     }
 }
 

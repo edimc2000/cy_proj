@@ -50,7 +50,7 @@ describe('TG Pagination Function', () => {
         elements.buttonNext().should('not.be.enabled')
 
     })
-    it.only('[TC03] Validate the Pagination Cities content', () => {
+    it('[TC03] Validate the Pagination Cities content', () => {
 
         cy.section('Validate - Paginated content')
         elements.pageMarkers().each((el, index) => {

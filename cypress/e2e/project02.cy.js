@@ -11,7 +11,7 @@ describe('TG Login Form', () => {
 
     it('[TC01] Validate the login form', () => {
         // steps 2 to 7   labels and input boxes 
-        elements.divLabels().each((el, index) => {
+        elements.getDivLabels().each((el, index) => {
             cy.wrap(el)
                 .should('be.visible')
                 .and('have.text', testData.inputlabels[index])
@@ -22,18 +22,18 @@ describe('TG Login Form', () => {
         })
 
         // steps 8 to 10
-        elements.loginButton()
+        elements.getLoginButton()
             .should('be.visible')
             .and('be.enabled')
             .and('have.text', testData.loginButtonlabel)
 
         // steps 11 to 13 
-        elements.forgotPasswordLink()
+        elements.getForgotPasswordLink()
             .should('be.visible')
             .and('have.prop', 'tagName', 'A') // a tag for clickable assertion
             .and('have.text', testData.forgotLabel)
             .click()
-        elements.modalTitle().should('be.visible') // secondary assertion for the link, when it's clickable
+        elements.getModalTitle().should('be.visible') // secondary assertion for the link, when it's clickable
     })
 
     it('[TC02] Validate the successful login', () => {
@@ -44,7 +44,7 @@ describe('TG Login Form', () => {
         //steps 5 -6 
         cy.step('Validation when logged in ')
         elements.successMessage().should('be.visible').and('have.text', testData.successMessage)
-        elements.logoutButton().should('be.visible').and('be.enabled').and('have.text', testData.logoutButtonlabel)
+        elements.getLogoutButton().should('be.visible').and('be.enabled').and('have.text', testData.logoutButtonlabel)
     })
 
 
@@ -54,43 +54,43 @@ describe('TG Login Form', () => {
         loginPage.login(testData.validUserName, testData.validPassword)
 
         //step 5
-        elements.logoutButton().click()
+        elements.getLogoutButton().click()
 
         //step 6
-        elements.userNameInputbox().should('be.visible')
-        elements.passwordInputbox().should('be.visible')
+        elements.getUserNameInputbox().should('be.visible')
+        elements.getPasswordInputbox().should('be.visible')
     })
 
     it('[TC04] Validate the Forgot Password? Link and Reset Password modal', () => {
-        elements.forgotPasswordLink().click()
+        elements.getForgotPasswordLink().click()
 
         //steps 3-6 
-        elements.modalTitle().should('be.visible').and('have.text', 'Reset Password')
-        elements.modalCloseButton().should('be.visible').and('have.attr', 'class', 'delete')
-        elements.modalEmailInputbox().should('be.visible')
-        elements.modalEmailInputbox().parent()
+        elements.getModalTitle().should('be.visible').and('have.text', 'Reset Password')
+        elements.getModalCloseButton().should('be.visible').and('have.attr', 'class', 'delete')
+        elements.getModalEmailInputbox().should('be.visible')
+        elements.getModalEmailInputbox().parent()
             .should('have.text', testData.paswordResetLabel)
 
         //steps 7-9
-        elements.modalSubmitButton()
+        elements.getModalSubmitButton()
             .should('be.visible')
             .and('have.text', 'SUBMIT')
             .and('not.have.attr', 'disabled')
     })
 
     it('[TC05] Validate the Reset Password modal close button', () => {
-        elements.forgotPasswordLink().click()
+        elements.getForgotPasswordLink().click()
 
         //steps 3-5
-        elements.modalTitle().should('have.text', testData.modelResetPasswordTitle)
-        elements.modalCloseButton().should('be.visible').click()
-        elements.modalCard().should('not.exist')
+        elements.getModalTitle().should('have.text', testData.modelResetPasswordTitle)
+        elements.getModalCloseButton().should('be.visible').click()
+        elements.getModalCard().should('not.exist')
     })
 
     it('[TC06] Validate the Reset Password form submission', () => {
         //steps 2-6
         loginPage.passwordReset(testData.emailAddress)
-        elements.modalConfirmationMessage()
+        elements.getModalConfirmationMessage()
             .should('be.visible')
             .and('have.text', testData.paswordResetSumittedLabel)
     })
