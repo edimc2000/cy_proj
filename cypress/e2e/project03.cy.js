@@ -35,7 +35,6 @@ describe('TG Booking Form', () => {
 
         cy.section(`Validate the book button`)
         bookingPage.validateBookButton()
-
     })
 
     it('[TC03] Validate the booking for 1 passenger and one way', () => {
@@ -54,10 +53,7 @@ describe('TG Booking Form', () => {
         bookingPage.bookTrip(tripType, cabinClass, leavingFrom, goingTo, dateDepart, dateReturn)
         bookingPage.inputPassengerDetails(numPassengers, passenger1Input)
         bookingPage.validateSummary(tripType, leavingFrom, goingTo, dateDepart, dateReturn, passengerDetails)
-
     })
-
-
 
     it('[TC04] Validate the booking for 1 passenger and round trip', () => {
         let tripType = 'Round trip'
@@ -75,7 +71,6 @@ describe('TG Booking Form', () => {
         bookingPage.bookTrip(tripType, cabinClass, leavingFrom, goingTo, dateDepart, dateReturn)
         bookingPage.inputPassengerDetails(numPassengers, passenger1Input)
         bookingPage.validateSummary(tripType, leavingFrom, goingTo, dateDepart, dateReturn, passengerDetails)
-
     })
 
     it('[TC05] Validate the booking for 2 passengers and one way', () => {
@@ -89,13 +84,12 @@ describe('TG Booking Form', () => {
         let numPassengers = '2'
         let passenger1Input = 'Adult (16-64)'
         let passengerDetails = [`Number of Passengers: ${numPassengers}`, `Passenger 1: ${passenger1Input}`]
+        
         bookingPage.createAssertionValuesForPassengers(passenger1Input, numPassengers, passengerDetails, cabinClass)
         console.log(passengerDetails)
-
 
         bookingPage.bookTrip(tripType, cabinClass, leavingFrom, goingTo, dateDepart, dateReturn)
         bookingPage.inputPassengerDetails(numPassengers, passenger1Input)
         bookingPage.validateSummary(tripType, leavingFrom, goingTo, dateDepart, dateReturn, passengerDetails)
-
     })
 })
