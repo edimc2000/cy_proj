@@ -37,8 +37,6 @@ class Booking extends BookingPage {
         } else {
             this.selectors.getSelectNumPassengers().select(numPassengers)
         }
-
-
         cy.section(`Book - Click the button`)
         this.clickBook()
     }
@@ -64,7 +62,6 @@ class Booking extends BookingPage {
     }
 
     validateSummary(tripType, leavingFrom, goingTo, dateDepart, dateReturn, passengerDetails) {
-
         cy.section(`Validate Booking Summary`)
         cy.step(`Validate Depature`)
         let departInfo = ['DEPART', `${leavingFrom} to ${goingTo}`, utils.convertDateFormat(dateDepart)]
@@ -101,14 +98,11 @@ class Booking extends BookingPage {
     validateTripType(tripType) {
         let assertRadio1
         let assertRadio2
-
         tripType === 'One way'
             ? (assertRadio1 = () => this.selectors.getRadioOneWay(), assertRadio2 = () => this.selectors.getRadioRountrip())
             : (assertRadio2 = () => this.selectors.getRadioOneWay(), assertRadio1 = () => this.selectors.getRadioRountrip())
-
         assertRadio1().should('be.checked')
         assertRadio2().should('not.be.checked')
-
     }
 
     /** Validates the form based on supplied args 
@@ -117,7 +111,6 @@ class Booking extends BookingPage {
     */
     validateLabelsAndElements(tripType) {
         tripType = tripType ?? 'One way'
-
         this.selectors.getDivLabelsExceptTripType().each(function (data) {
             cy.wrap(data) //labels
                 .children().eq(0)
@@ -167,8 +160,6 @@ class Booking extends BookingPage {
 
 
     createAssertionValuesForPassengers(passenger1Input, numPassengers, passengerDetails, cabinClass) {
-
-
         if (numPassengers > 1) {
             for (let i = 2; i <= numPassengers; i++) {
                 console.log(i)
@@ -176,12 +167,8 @@ class Booking extends BookingPage {
                 passengerDetails.push(`Passenger ${i}: ${testData.divs['Passenger ' + [i]].defaultValue}`)
             }
         }
-
         passengerDetails.push(`Cabin class: ${cabinClass}`)
     }
-
-
-
 
     /**
      * @returns 3 dates, date tomorrow, date next month +7days  and date next week
@@ -213,10 +200,6 @@ class Booking extends BookingPage {
         }
         return tripDate
     }
-
-
-
-
 }
 
 

@@ -13,7 +13,6 @@ describe('TG Booking Form', () => {
     })
 
     it('[TC01] Validate the default Book your trip form', () => {
-
         cy.section(`Validate the trip type section - labels and input elements`)
         bookingPage.validateTripTypeDefaults('One way')
         bookingPage.validateTripTypeDefaults('Round trip')
@@ -26,7 +25,6 @@ describe('TG Booking Form', () => {
     })
 
     it('[TC02] Validate the Book your trip form when Round trip is selected', () => {
-
         let tripType = 'Round trip'
         bookingPage.clickRadio(tripType)
 
@@ -45,7 +43,7 @@ describe('TG Booking Form', () => {
         let dateDepart = bookingPage.testDates().dateNextWeek
         let dateReturn = null
         let numPassengers = '1'
-        let passenger1Input = 'Adult (16-64)'
+        let passenger1Input = 'Senior (65+)'
 
         let passengerDetails = [`Number of Passengers: ${numPassengers}`, `Passenger 1: ${passenger1Input}`]
         bookingPage.createAssertionValuesForPassengers(passenger1Input, numPassengers, passengerDetails, cabinClass)
@@ -74,12 +72,11 @@ describe('TG Booking Form', () => {
     })
 
     it('[TC05] Validate the booking for 2 passengers and one way', () => {
-
         let tripType = 'One way'
         let cabinClass = 'Premium Economy'
         let leavingFrom = 'NY'
         let goingTo = 'TX'
-        let dateDepart = bookingPage.testDates().dateNextWeek
+        let dateDepart = bookingPage.testDates().dateTomorrow
         let dateReturn = null
         let numPassengers = '2'
         let passenger1Input = 'Adult (16-64)'

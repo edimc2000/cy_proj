@@ -5,7 +5,7 @@ class BookingPage {
         getDivs: () => cy.get('div.field'),
         getDivLabels: () => cy.get('div.field').find('.label'),
         getDivLabelsExceptTripType: () => cy.get('div.field:nth-child(n + 2)'),
-       
+
         getRadioButtons: () => cy.get('label.radio'),
         getRadioRountrip: () => cy.get('[value="Round trip"]'),
         getRadioOneWay: () => cy.get('[value="One way"]'),
@@ -16,11 +16,9 @@ class BookingPage {
         getInputDepart: () => cy.get(':nth-child(5) > div input', { timeout: 10000 }),
         getInputReturn: () => cy.get(':nth-child(6) > div input'),
 
-
-        getDatePickerButtonNext: () =>cy.get('[aria-label="Next Month"]'), 
+        getDatePickerButtonNext: () => cy.get('[aria-label="Next Month"]'),
         getInputDepartField: ':nth-child(5) > div input',
         getInputReturnField: ':nth-child(6) > div input',
-
 
         getSelectNumPassengers: () => cy.get(':nth-child(7) > div.select > select'),
 
@@ -38,9 +36,7 @@ class BookingPage {
         getSelectPassenger9: () => cy.get(':nth-child(16) > div.select > select'),
 
         getDatePickerContainer: () => cy.get('.react-datepicker__month-container'),
-
     }
-
 }
 
 module.exports = BookingPage
