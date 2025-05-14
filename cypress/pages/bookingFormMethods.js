@@ -202,8 +202,6 @@ class Booking extends BookingPage {
     }
 }
 
-
-
 module.exports = new Booking()
 
 

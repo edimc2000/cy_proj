@@ -7,7 +7,7 @@ const selectors = bookingPage.selectors
 const testData = require('../fixtures/bookingFormTestData.js')
 const utils = require('../utils/utils.js')
 
-describe('TG Booking Form', () => {
+describe('TG Booking Function', () => {
     beforeEach(() => {
         cy.visit('https://www.techglobal-training.com/frontend/booking');
     })
