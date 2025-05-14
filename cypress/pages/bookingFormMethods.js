@@ -8,30 +8,39 @@ class Booking extends BookingPage {
     bookTrip(tripType, cabinClass, leavingFrom, goingTo, dateDepart, dateReturn) {
         this.clickRadio(tripType)
         this.inputTripDetails(tripType, cabinClass, leavingFrom, goingTo, dateDepart, dateReturn)
-        this.clickBook()
     }
 
     inputTripDetails(tripType, cabinClass, leavingFrom, goingTo, dateDepart, dateReturn) {
+        cy.section(`Input trip details`)
+        cy.step(`Input cabin class`)
         this.selectors.getSelectCabinClass().select(cabinClass)
+        cy.step(`Input leaving from and going to`)
         this.selectors.getSelectFrom().select(leavingFrom)
         this.selectors.getSelectTo().select(goingTo)
 
+        cy.step(`Input date(s)`)
         cy.log(dateDepart)
         this.tripDatePicker(dateDepart, this.selectors.getInputDepartField)
         if (tripType === 'Round trip') this.tripDatePicker(dateReturn, this.selectors.getInputReturnField)
     }
 
     inputPassengerDetails = (numPassengers, passenger1Input) => {
+        cy.section(`Input passenger details`)
+        this.selectors.getSelectNumPassengers().select(numPassengers)
+        cy.step(`Input passenger 1`)
         this.selectors.getSelectPassenger1().select(passenger1Input)
-
         if (numPassengers > 1) {
-            this.selectors.getSelectNumPassengers().select(numPassengers)
             for (let i = 2; i <= numPassengers; i++) {
+                cy.step(`Input passenger ${i}`)
                 this.selectors['getSelectPassenger' + [i]]().select(testData.divs['Passenger ' + [i]].defaultValue)
             }
         } else {
             this.selectors.getSelectNumPassengers().select(numPassengers)
         }
+
+
+        cy.section(`Book - Click the button`)
+        this.clickBook()
     }
 
     /**
@@ -39,6 +48,7 @@ class Booking extends BookingPage {
      * @param {string} tripType 'One way' for one way trip  and 'Round trip' for roundtrip 
      */
     clickRadio(tripType) {
+        cy.section(`Input trip type`)
         cy.step(`Click radio button: ${tripType}`)
         tripType === 'One way'
             ? this.selectors.getRadioOneWay().click()
@@ -53,26 +63,28 @@ class Booking extends BookingPage {
         this.selectors.getButtonBook().click()
     }
 
-    validateSummary(tripType, leavingFrom, goingTo, dateDepart, dateReturn) {
+    validateSummary(tripType, leavingFrom, goingTo, dateDepart, dateReturn, passengerDetails) {
+
+        cy.section(`Validate Booking Summary`)
+        cy.step(`Validate Depature`)
         let departInfo = ['DEPART', `${leavingFrom} to ${goingTo}`, utils.convertDateFormat(dateDepart)]
         this.selectors.getDivDepartSummary().children().each(function (info, index) {
-            cy.log(info.text())
             cy.wrap(info).should('have.text', departInfo[index])
         })
 
         if (tripType === 'Round trip') {
+            cy.step(`Validate Return`)
             let returnInfo = ['RETURN', `${goingTo} to ${leavingFrom}`, utils.convertDateFormat(dateReturn)]
-            this.selectors.getDivReturnSummary().children().children().each( function(info, index){
-            cy.log(info.text())
-            cy.wrap(info).should('have.text', returnInfo[index])
-
+            this.selectors.getDivReturnSummary().children().children().each(function (info, index) {
+                cy.wrap(info).should('have.text', returnInfo[index])
             })
         }
-        this.selectors.getDivPassengerSummary()
 
+        cy.step(`Validate Passenger(s)`)
+        this.selectors.getDivPassengerSummary().children().each(function (info, index) {
+            cy.wrap(info).should('have.text', passengerDetails[index])
+        })
     }
-
-
 
     validateTripTypeDefaults(tripType) {
         let assertRadio
@@ -152,6 +164,24 @@ class Booking extends BookingPage {
             cy.get(`[aria-label="Choose ${utils.convertDateFormatv2(strDate)}"]`).realClick()
         })
     }
+
+
+    createAssertionValuesForPassengers(passenger1Input, numPassengers, passengerDetails, cabinClass) {
+
+
+        if (numPassengers > 1) {
+            for (let i = 2; i <= numPassengers; i++) {
+                console.log(i)
+                console.log(testData.divs['Passenger ' + [i]].defaultValue)
+                passengerDetails.push(`Passenger ${i}: ${testData.divs['Passenger ' + [i]].defaultValue}`)
+            }
+        }
+
+        passengerDetails.push(`Cabin class: ${cabinClass}`)
+    }
+
+
+
 
     /**
      * @returns 3 dates, date tomorrow, date next month +7days  and date next week
