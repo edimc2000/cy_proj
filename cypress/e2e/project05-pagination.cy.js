@@ -14,6 +14,7 @@ describe('TG Pagination Function', () => {
 
     })
 
+    
     it('[TC01] Validate the main content', () => {
         cy.section('Validate default texts on the page when loaded ')
         elements.heading().should('be.visible').and('have.text', testData.headingText)
