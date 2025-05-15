@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build ": "npm install",
+    "build": "npm install",
     "test": "npx cypress run",
     "test:02": "npx cypress run --spec 'cypress/e2e/project02.cy.js'",
     "test:03": "npx cypress run --spec 'cypress/e2e/project03.cy.js'",
