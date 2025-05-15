@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-
     "test:02": "npx cypress run --spec 'cypress/e2e/project02.cy.js'",
     "test:03": "npx cypress run --spec 'cypress/e2e/project03.cy.js'",
     "test:04": "npx cypress run --spec 'cypress/e2e/project04-dynamic-tables.cy.js'",
@@ -19,4 +18,5 @@
     "dotenv": "^16.5.0",
     "neat-csv": "^5.2.0"
   }
+ 
 }
