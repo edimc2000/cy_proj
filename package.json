@@ -14,11 +14,9 @@
   "description": "",
   "devDependencies": {
     "cypress": "^14.3.2",
+    "cypress-plugin-steps": "^1.2.0",
     "cypress-real-events": "^1.14.0",
-    "dotenv": "^16.5.0", 
-    "cypress-plugin-steps": "^1.2.0"
-  },
-  "dependencies": {
-   
+    "dotenv": "^16.5.0",
+    "neat-csv": "^5.2.0"
   }
 }

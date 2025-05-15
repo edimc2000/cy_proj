@@ -1,0 +1,9 @@
+﻿s/n,item,value,type
+0,tableHeaders,"Quantity,Product,Price $,Total $",array
+1,tableName,Inventory,string
+2,buttonAddProductLabel,ADD PRODUCT,string
+4,buttonSubmitLabel,SUBMIT,string
+4,totalAmountDefault,"Total = $2,300",string
+5,totalAmountAddedProduct,"Total = $2,500",string
+6,modalTitle,Add New Product,string
+7,modalInputLabel,"Please select the quantity, Please enter the name of the product, Please enter the price of the product",array

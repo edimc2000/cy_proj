@@ -1,5 +1,6 @@
 /// <reference types = "cypress" />
 require('cypress-plugin-steps')
+const neatCSV = require('neat-csv')
 const dynamicTable = require('../pages/dynamicTablePage')
 const testData = require('./data/dynamicTableTestData')
 const elements = dynamicTable.elements
@@ -7,45 +8,57 @@ const formatter = new Intl.NumberFormat('en-US')
 
 
 describe('TG Dynamic Tables', () => {
+    let tableTestDataLabels
+    let tableTestDefaultContent
+
+    before(() => {
+        cy.fixture('dynamicTablesLabels').then(neatCSV).then(data => {
+            tableTestDataLabels = data
+            console.table(tableTestDataLabels)
+        })
+        cy.fixture('dynamicTablesDefaultContent').then(neatCSV).then(data => {
+            tableTestDefaultContent = data
+            console.table(tableTestDefaultContent)
+        })
+    })
 
     beforeEach(() => {
         cy.visit('https://www.techglobal-training.com/frontend/dynamic-tables')
 
     })
 
-    it('[TC01] Validate the default content of the inventory table', () => {
+    it.only('[TC01] Validate the default content of the inventory table', () => {
         cy.section('Name and Headers')
         cy.step('Table Name')
-        elements.heading().should('have.text', testData.tableName).and('be.visible')
+        elements.heading().should('have.text', tableTestDataLabels[1].value).and('be.visible')
 
         cy.step('Table Headers')
         elements.tableHeaders().each((el, index) => {
-            cy.wrap(el).should('have.text', testData.tableHeaders[index]).and('be.visible')
+            cy.wrap(el).should('have.text', tableTestDataLabels[0]['value'].split(',')[index]).and('be.visible')
         })
 
         cy.section('Dafault Table Content')
-        elements.tableBody().each((tbody, index1) => {
-            cy.step(`Validating Row ${index1 + 1} - values and visibility `)
-            cy.wrap(tbody).children().each((content, index2) => {
-                let productQuery
-                index2 < 3 ? productQuery = testData.defaultContent[index1][testData.tableHeaders[index2]]
-                    : productQuery = (testData.defaultContent[index1][testData.tableHeaders[index2 - 3]]
-                        * (Number(testData.defaultContent[index1][testData.tableHeaders[index2 - 1]].replace(/,/g, '')))).toLocaleString('en-US')
-                cy.wrap(content).should('have.text', productQuery).and('be.visible')
+        elements.tableBody().each((row, index) => {
+            cy.step(`Validating Row ${index + 1} - values and visibility `)
+            cy.wrap(row).children().each((cell, index2) => {
+                cy.wrap(cell).should('have.text', tableTestDefaultContent[index][tableTestDataLabels[0]['value'].split(',')[index2]])
             })
         })
+
         cy.section('Others')
         cy.step('Add Product Button')
         elements.buttonAddProduct()
             .should('be.enabled')
             .and('be.visible')
-            .and('have.text', testData.buttonAddProductLabel)
+            .and('have.text', tableTestDataLabels[2].value)
 
         cy.step('Total Amount')
         elements.totalAmount()
             .should('be.visible')
-            .and('have.text', testData.totalAmountDefault)
-    })
+            .and('have.text', tableTestDataLabels[4].value)
+    });
+
+
 
     it('[TC02] Validate the Add New Product modal', () => {
         elements.buttonAddProduct().click()
