@@ -66,7 +66,6 @@ describe('TG Shopping Cart', () => {
                 .and('include.text', 'Add to Cart')
                 .and('be.enabled')
         })
-
     })
 
     /*
@@ -77,11 +76,29 @@ describe('TG Shopping Cart', () => {
     4 * Validate that the total price is zero “$0” by default
     5 * Validate that there is a “Place Order” button is displayed, disabled, and has the text “Place Order”
     */
-    it.only('[TC012 - Cart Section Validationn', () => {
+    it.only('[TC02] - Cart Section Validation', () => {
         locators.getSubHeadingCartItems().should('have.text', 'Items Added to Cart')
         locators.getItemsOnCart().should('not.exist')
         locators.getTextTotalPrice().should('include.text', '$0')
         locators.getButtonPlaceOrder().should('not.be.enabled')
-     })
+    })
+
+    /*
+    [TC03] - Add a Course to the Cart and Validate
+    1 Navigate to https://techglobal-training.com/frontend/shopping-cart
+    2 Click on the “Add to Cart” button for one of the courses
+    3 Validate that the course is displayed in the cart with its image, name, and discount amount if available
+    4 Validate that the course price is added to the total price excluding the discount amount
+    5 Click on the “Place Order” button
+    6 Validate a success message is displayed with the text “Your order has been placed.”
+    7 Validate that the cart is empty
+    */
+    it.only('[TC03] - Add a Course to the Cart and Validate', () => {
+
+    })
+
+
+
+
 })
 

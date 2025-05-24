@@ -8,7 +8,6 @@ class ShoppingCartPage {
         getTextTotalPrice: () => cy.get('#total-price'), 
         getButtonPlaceOrder: () => cy.contains('Place Order'), 
     }
-    
 }
 
 export default new ShoppingCartPage()
