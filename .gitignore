@@ -3,4 +3,3 @@
 /cypress/screenshot*/*
 /temp/*
 .env
-*cypress*
