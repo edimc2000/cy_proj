@@ -58,9 +58,9 @@ describe('TG Shopping Cart', () => {
                 .should('be.visible')  //2nd part of the card
 
                 .children().first().children()  // discount applies to first 2 items only
-                .then( el => {index < 2 ? cy.wrap(el ).should('have.attr', 'data-testid', 'discount'): null})
+                .then(el => { index < 2 ? cy.wrap(el).should('have.attr', 'data-testid', 'discount') : null })
                 .and('include.text', shoppingcartItems[index].discount)
-                               
+
                 .parent().parent().children()
                 .last()   // add to card button
                 .and('include.text', 'Add to Cart')
@@ -69,6 +69,19 @@ describe('TG Shopping Cart', () => {
 
     })
 
-
+    /*
+    [TC02] - Cart Section Validation
+    1 * Navigate to https://techglobal-training.com/frontend/shopping-cart
+    2 * Validate the heading is “Items Added to Cart”
+    3 * Validate that the cart is empty by default
+    4 * Validate that the total price is zero “$0” by default
+    5 * Validate that there is a “Place Order” button is displayed, disabled, and has the text “Place Order”
+    */
+    it.only('[TC012 - Cart Section Validationn', () => {
+        locators.getSubHeadingCartItems().should('have.text', 'Items Added to Cart')
+        locators.getItemsOnCart().should('not.exist')
+        locators.getTextTotalPrice().should('include.text', '$0')
+        locators.getButtonPlaceOrder().should('not.be.enabled')
+     })
 })
 
