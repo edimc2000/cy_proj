@@ -61,16 +61,6 @@ describe('TG Pagination Function', () => {
             elements.contentImage().should('be.visible').and('have.attr', 'src', testData.paginatedContent[index].image)
 
             elements.buttonNext().realClick()
-
         })
-
-
-
-
-
-
     })
-
-
-
 })
