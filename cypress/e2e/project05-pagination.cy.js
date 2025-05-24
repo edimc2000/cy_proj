@@ -59,7 +59,6 @@ describe('TG Pagination Function', () => {
             elements.contentCountry().should('be.visible').and('have.text', `Country: ${testData.paginatedContent[index].country}`)
             elements.contentPopulation().should('be.visible').and('have.text', `Population: ${testData.paginatedContent[index].population}`)
             elements.contentImage().should('be.visible').and('have.attr', 'src', testData.paginatedContent[index].image)
-
             elements.buttonNext().realClick()
         })
     })
