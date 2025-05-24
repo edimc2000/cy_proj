@@ -3,3 +3,6 @@
 /cypress/screenshot*/*
 /temp/*
 .env
+cypress/e2e/project06-toDoList.cy.js
+cypress/pages/06-toDoListPage.js
+*cypress*
