@@ -36,7 +36,6 @@ describe('TG Shopping Cart', () => {
         locators.getCardCourses().each((card, index) => {
 
             cy.wrap(card).children().first()
-
                 .children().first()  // this is for the image 
                 .should('be.visible')
                 .and('have.attr', 'src', shoppingcartItems[index].image)
