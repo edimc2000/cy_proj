@@ -94,20 +94,90 @@ describe('TG Shopping Cart', () => {
     7 Validate that the cart is empty
     */
     it.only('[TC03] - Add a Course to the Cart and Validate', () => {
-        locators.getButtonCourse1().click()   // adding first card/course to cart
-        locators.getItemsOnCart().children()
-            .first() // image for the item on cart 
-            .should('have.attr', 'src', shoppingcartItems[0].image)
-            .next().children().first().should('have.text', shoppingcartItems[0].program)
-            .next().should('include.text', `(${shoppingcartItems[0].discount} % off)`)
-            .and('include.text', `$${Number(shoppingcartItems[0].price) * (1 - shoppingcartItems[0].discount / 100)}`)
-
-        locators.getTextTotalPrice().should('include.text',`$${Number(shoppingcartItems[0].price) * (1 - shoppingcartItems[0].discount / 100)}` )
+        let totalAmount = addToCart([shoppingcartItems[0]])
+        locators.getTextTotalPrice().should('include.text', `$${totalAmount.reduce((cost, amount) => cost + amount, 0)}`)
         locators.getButtonPlaceOrder().click()
         locators.getContainerOderConfirmation().should('have.text', 'Your order has been placed.')
+        locators.getItemsOnCart().should('not.exist')
+    })
+
+    /* 
+    [TC04] - Add Two Courses to the Cart and Validate
+    1 Navigate to https://techglobal-training.com/frontend/shopping-cart
+    2 Click on the “Add to Cart” button for one of the courses
+    3 Click on the “Add to Cart” button for another course
+    4 Validate that the courses are displayed in the cart with their image, name, and discount amount if available
+    5 Validate that the course prices are added to the total price ''including'' the discount amounts
+    6 Click on the “Place Order” button
+    7 Validate a success message is displayed with the text “Your order has been placed.”
+    8 Validate that the cart is empty
+    */
+
+    it.only('[TC04] - Add Two Courses to the Cart and Validate', () => {
+        let totalAmount = addToCart([shoppingcartItems[0], shoppingcartItems[1]])
+        locators.getTextTotalPrice().should('include.text', `$${totalAmount.reduce((cost, amount) => cost + amount, 0)}`)
+        locators.getButtonPlaceOrder().click()
+        locators.getContainerOderConfirmation().should('have.text', 'Your order has been placed.')
+        locators.getItemsOnCart().should('not.exist')
+    })
+
+    /*
+    [TC05] Add All Three Courses to the Cart and Validate
+    1 Navigate to https://techglobal-training.com/frontend/shopping-cart
+    2 Click on the “Add to Cart” button for all three courses
+    3 Validate that the courses are displayed in the cart with their image, name, and discount amount if available
+    4 Validate that the course prices are added to the total price 'including' the discount amounts
+    6 Click on the “Place Order” button
+    7 Validate a success message is displayed with the text “Your order has been placed.”
+    8 Validate that the cart is empty
+    */
+
+    it.only('[TC05] - Add All Three Courses to the Cart and Validate', () => {
+        let totalAmount = addToCart(shoppingcartItems)
+        locators.getTextTotalPrice().should('include.text', `$${totalAmount.reduce((cost, amount) => cost + amount, 0)}`)
+        locators.getButtonPlaceOrder().click()
+        locators.getContainerOderConfirmation().should('have.text', 'Your order has been placed.')
+        locators.getItemsOnCart().should('not.exist')
     })
 
 
+
+    const addToCart = arr => {
+        let totalAmount = []
+        
+        arr.forEach((data, index) => {
+            shoppingCartPage.addProgramToCart(data.program)
+            let discount
+            let programCost
+
+            cy.log(`--------${data.program} ${index}`)
+            if (index < 2) {
+                discount = `(${data.discount} % off)`
+                programCost = `${Number(shoppingcartItems[index].price) * (1 - shoppingcartItems[index].discount / 100)}`
+            } else {
+                discount = ``
+                programCost = `${Number(shoppingcartItems[index].price)}`
+            }
+
+            locators.getItemsOnCart().eq(index).children()
+                .eq(0) // image for the item on cart
+                .should('have.attr', 'src', data.image)
+                .parent().children()
+                .eq(1)  //program description and price with discount 
+                .children()
+                .eq(0) //program name 
+                .should('have.text', data.program)
+                .parent().children()
+                .eq(1) // price and discount
+                .should('include.text', `${discount}`)
+                .and('include.text', `$${programCost}`)
+
+            totalAmount.push(Number(programCost))
+            cy.log('====== program cost ', totalAmount.reduce((cost, amount) => cost + amount, 0))
+        })
+
+        return totalAmount
+    }
 
 
 })

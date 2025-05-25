@@ -1,3 +1,4 @@
+
 class ShoppingCartPage {
 
     locators = {
@@ -9,13 +10,20 @@ class ShoppingCartPage {
         getButtonPlaceOrder: () => cy.contains('Place Order'),
         getContainerOderConfirmation: () => cy.get('.notification'),
 
-        getButtonCourse1: () => cy.get('#course-1 button')
+        getButtonCourse0: () => cy.get('#course-1 button')
 
     }
 
 
     // Methods 
-
+    addProgramToCart = str => {
+        cy.contains(str)
+            .parent()
+            .parent()
+            .next()
+            .contains('Add to Cart')
+            .click()
+    }
 
 
 
