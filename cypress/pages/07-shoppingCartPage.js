@@ -7,8 +7,10 @@ class ShoppingCartPage {
         getItemsOnCart: () => cy.get('.course-card'),
         getTextTotalPrice: () => cy.get('#total-price'),
         getButtonPlaceOrder: () => cy.contains('Place Order'),
+        getContainerOderConfirmation: () => cy.get('.notification'),
 
         getButtonCourse1: () => cy.get('#course-1 button')
+
     }
 
 

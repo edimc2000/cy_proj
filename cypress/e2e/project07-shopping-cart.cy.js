@@ -87,15 +87,24 @@ describe('TG Shopping Cart', () => {
     [TC03] - Add a Course to the Cart and Validate
     1 * Navigate to https://techglobal-training.com/frontend/shopping-cart
     2 * Click on the “Add to Cart” button for one of the courses
-    3 Validate that the course is displayed in the cart with its image, name, and discount amount if available
-    4 Validate that the course price is added to the total price excluding the discount amount
-    5 Click on the “Place Order” button
-    6 Validate a success message is displayed with the text “Your order has been placed.”
+    3 * Validate that the course is displayed in the cart with its image, name, and discount amount if available
+    4 * Validate that the course price is added to the total price ''including'' the discount amount
+    5 * Click on the “Place Order” button
+    6 * Validate a success message is displayed with the text “Your order has been placed.”
     7 Validate that the cart is empty
     */
     it.only('[TC03] - Add a Course to the Cart and Validate', () => {
         locators.getButtonCourse1().click()   // adding first card/course to cart
+        locators.getItemsOnCart().children()
+            .first() // image for the item on cart 
+            .should('have.attr', 'src', shoppingcartItems[0].image)
+            .next().children().first().should('have.text', shoppingcartItems[0].program)
+            .next().should('include.text', `(${shoppingcartItems[0].discount} % off)`)
+            .and('include.text', `$${Number(shoppingcartItems[0].price) * (1 - shoppingcartItems[0].discount / 100)}`)
 
+        locators.getTextTotalPrice().should('include.text',`$${Number(shoppingcartItems[0].price) * (1 - shoppingcartItems[0].discount / 100)}` )
+        locators.getButtonPlaceOrder().click()
+        locators.getContainerOderConfirmation().should('have.text', 'Your order has been placed.')
     })
 
 
