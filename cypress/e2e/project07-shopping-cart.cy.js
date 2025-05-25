@@ -92,7 +92,7 @@ describe('TG Shopping Cart', () => {
     6 * Validate a success message is displayed with the text “Your order has been placed.”
     7 Validate that the cart is empty
     */
-    it.only('[TC03] - Add a Course to the Cart and Validate', () => {
+    it('[TC03] - Add a Course to the Cart and Validate', () => {
         let totalAmount = addToCart([shoppingcartItems[0]])
         locators.getTextTotalPrice().should('include.text', `$${totalAmount.reduce((cost, amount) => cost + amount, 0)}`)
         locators.getButtonPlaceOrder().click()
@@ -111,7 +111,7 @@ describe('TG Shopping Cart', () => {
     7 Validate a success message is displayed with the text “Your order has been placed.”
     8 Validate that the cart is empty
     */
-    it.only('[TC04] - Add Two Courses to the Cart and Validate', () => {
+    it('[TC04] - Add Two Courses to the Cart and Validate', () => {
         let totalAmount = addToCart([shoppingcartItems[0], shoppingcartItems[1]])
         locators.getTextTotalPrice().should('include.text', `$${totalAmount.reduce((cost, amount) => cost + amount, 0)}`)
         locators.getButtonPlaceOrder().click()
@@ -129,7 +129,7 @@ describe('TG Shopping Cart', () => {
     7 Validate a success message is displayed with the text “Your order has been placed.”
     8 Validate that the cart is empty
     */
-    it.only('[TC05] - Add All Three Courses to the Cart and Validate', () => {
+    it('[TC05] - Add All Three Courses to the Cart and Validate', () => {
         let totalAmount = addToCart(shoppingcartItems)
         locators.getTextTotalPrice().should('include.text', `$${totalAmount.reduce((cost, amount) => cost + amount, 0)}`)
         locators.getButtonPlaceOrder().click()
