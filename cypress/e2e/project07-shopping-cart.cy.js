@@ -30,7 +30,6 @@ describe('TG Shopping Cart', () => {
     5 * Validate the first 2 courses have discount tags
     6 Validate that there is an “Add to Cart” button under each course which is displayed, enabled, and has the text “Add to Cart”
     */
-
     it('[TC01] - Available Courses Section Validation', () => {
         locators.getHeadingMain().should('have.text', 'Available Courses')
         locators.getCardCourses().each((card, index) => {
@@ -112,7 +111,6 @@ describe('TG Shopping Cart', () => {
     7 Validate a success message is displayed with the text “Your order has been placed.”
     8 Validate that the cart is empty
     */
-
     it.only('[TC04] - Add Two Courses to the Cart and Validate', () => {
         let totalAmount = addToCart([shoppingcartItems[0], shoppingcartItems[1]])
         locators.getTextTotalPrice().should('include.text', `$${totalAmount.reduce((cost, amount) => cost + amount, 0)}`)
@@ -131,7 +129,6 @@ describe('TG Shopping Cart', () => {
     7 Validate a success message is displayed with the text “Your order has been placed.”
     8 Validate that the cart is empty
     */
-
     it.only('[TC05] - Add All Three Courses to the Cart and Validate', () => {
         let totalAmount = addToCart(shoppingcartItems)
         locators.getTextTotalPrice().should('include.text', `$${totalAmount.reduce((cost, amount) => cost + amount, 0)}`)
@@ -139,7 +136,6 @@ describe('TG Shopping Cart', () => {
         locators.getContainerOderConfirmation().should('have.text', 'Your order has been placed.')
         locators.getItemsOnCart().should('not.exist')
     })
-
 
 
     const addToCart = arr => {
@@ -173,7 +169,6 @@ describe('TG Shopping Cart', () => {
                 .and('include.text', `$${programCost}`)
 
             totalAmount.push(Number(programCost))
-            cy.log('====== program cost ', totalAmount.reduce((cost, amount) => cost + amount, 0))
         })
 
         return totalAmount
