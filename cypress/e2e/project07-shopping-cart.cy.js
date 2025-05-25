@@ -144,7 +144,7 @@ describe('TG Shopping Cart', () => {
 
     const addToCart = arr => {
         let totalAmount = []
-        
+
         arr.forEach((data, index) => {
             shoppingCartPage.addProgramToCart(data.program)
             let discount
@@ -178,7 +178,5 @@ describe('TG Shopping Cart', () => {
 
         return totalAmount
     }
-
-
 })
 
